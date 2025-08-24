@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck, Cpu, Users, Globe2 } from "lucide-react"; // example icons
+import { images } from "@/utils/images";
 
 const features = [
   {
@@ -115,7 +116,7 @@ const WhatSetsUsApart = () => {
           className="relative flex justify-center"
         >
           <img
-            src="/team-ai-overlay.png" // 🔥 replace with your actual image (team photo with AI overlays)
+            src={images.AI_BRAIN} // 🔥 replace with your actual image (team photo with AI overlays)
             alt="Our Team with AI overlays"
             className="rounded-2xl shadow-2xl border border-[var(--color-logo)]"
           />

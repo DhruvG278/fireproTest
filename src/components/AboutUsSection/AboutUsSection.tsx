@@ -96,7 +96,7 @@ const AboutSection = () => {
             className="flex-1 relative group"
           >
             <Image
-              src={images.LOGO_SECTION}
+              src={images.OUR_STORY}
               alt="Our Story"
               width={500}
               height={400}
@@ -113,7 +113,7 @@ const AboutSection = () => {
             className="flex-1 relative group"
           >
             <Image
-              src={images.LOGO_SECTION}
+              src={images.OUR_MiSSION}
               alt="Our Mission"
               width={500}
               height={400}
