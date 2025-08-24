@@ -5,10 +5,12 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 import WelcomeSection from "./WelcomeSection";
+import ParticlesBackground from "@/components/lightswind/ParticlesBackground";
 
 const HeroSection = () => {
   return (
     <div>
+      <ParticlesBackground />
       <div className="flex md:flex-row flex-col items-center justify-center p-5 md:p-6 bg-primary text-white">
         <motion.div
           className="w-full flex flex-col items-center justify-center gap-4"

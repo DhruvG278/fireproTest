@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { BorderBeam } from "../lightswind/border-beam";
 
 // Parent container variants for stagger
 const containerVariants = {
@@ -98,6 +99,14 @@ const KeyFeaturesSection = () => {
             onMouseMove={handleTilt}
             onMouseLeave={resetTilt}
           >
+            <BorderBeam
+              colorFrom="var(--color-text)"
+              colorTo="var(--color-text)"
+              size={200}
+              duration={6}
+              borderThickness={4}
+              glowIntensity={5}
+            />
             <p className="text-2xl font-bold text-text-primary underline">
               AI-Powered Design Excellence
             </p>
@@ -114,6 +123,14 @@ const KeyFeaturesSection = () => {
             onMouseMove={handleTilt}
             onMouseLeave={resetTilt}
           >
+            <BorderBeam
+              colorFrom="var(--color-text)"
+              colorTo="var(--color-text)"
+              size={200}
+              duration={6}
+              borderThickness={4}
+              glowIntensity={5}
+            />
             <p className="text-2xl font-bold text-text-primary underline">
               Unrivaled Confidentiality and Customization
             </p>
@@ -133,6 +150,14 @@ const KeyFeaturesSection = () => {
             onMouseMove={handleTilt}
             onMouseLeave={resetTilt}
           >
+            <BorderBeam
+              colorFrom="var(--color-text)"
+              colorTo="var(--color-text)"
+              size={200}
+              duration={6}
+              borderThickness={4}
+              glowIntensity={5}
+            />
             <p className="text-2xl font-bold text-text-primary underline">
               Scalable Solutions for Big Contractors
             </p>
@@ -149,6 +174,14 @@ const KeyFeaturesSection = () => {
             onMouseMove={handleTilt}
             onMouseLeave={resetTilt}
           >
+            <BorderBeam
+              colorFrom="var(--color-text)"
+              colorTo="var(--color-text)"
+              size={200}
+              duration={6}
+              borderThickness={4}
+              glowIntensity={5}
+            />
             <p className="text-2xl font-bold text-text-primary underline">
               Proven Track Record on Mega Projects
             </p>
@@ -167,6 +200,14 @@ const KeyFeaturesSection = () => {
           onMouseMove={handleTilt}
           onMouseLeave={resetTilt}
         >
+          <BorderBeam
+            colorFrom="var(--color-text)"
+            colorTo="var(--color-text)"
+            size={200}
+            duration={6}
+            borderThickness={4}
+            glowIntensity={5}
+          />
           <p className="text-2xl font-bold text-text-primary underline">
             Client Portal for Seamless Collaboration
           </p>

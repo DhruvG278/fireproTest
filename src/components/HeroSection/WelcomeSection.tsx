@@ -4,6 +4,7 @@ import { images } from "@/utils/images";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const WelcomeSection = () => {
   const { ref, inView } = useInView({
@@ -33,6 +34,24 @@ const WelcomeSection = () => {
     hidden: { opacity: 0, x: 60 },
     visible: { opacity: 1, x: 0 },
   };
+
+  // ---------------- Typing Effect ----------------
+  const fullText =
+    "Welcome to Pro Tech CDS, where innovation meets expertise in fire protection systems design and engineering. As leaders in AI-driven solutions, we specialize in large-scale projects for top contractors, architects, and engineers. Our proprietary AI tools ensure rapid turnarounds, flawless designs, and strict adherence to confidentiality. Whether you're building high-rise towers, data centers, or sprawling campuses, we handle everything — empowering you to focus on what you do best. Our state-of-the-art client portal transforms collaboration, replacing endless email chains with realtime updates, seamless communication, and automated project initiation.";
+
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return; // start only when section is visible
+    if (index < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText((prev) => prev + fullText[index]);
+        setIndex(index + 1);
+      }, 25); // typing speed (lower = faster)
+      return () => clearTimeout(timeout);
+    }
+  }, [index, inView]);
 
   return (
     <motion.section
@@ -97,18 +116,10 @@ const WelcomeSection = () => {
                 transition={{ duration: 1.5, ease: "easeInOut" }}
               />
 
-              <p className="text-lg text-text-primary text-center lg:text-justify leading-relaxed relative z-10">
-                Welcome to Pro Tech CDS, where innovation meets expertise in
-                fire protection systems design and engineering. As leaders in
-                AI-driven solutions, we specialize in large-scale projects for
-                top contractors, architects, and engineers. Our proprietary AI
-                tools ensure rapid turnarounds, flawless designs, and strict
-                adherence to confidentiality. Whether you're building high-rise
-                towers, data centers, or sprawling campuses, we handle
-                everything — empowering you to focus on what you do best. Our
-                state-of-the-art client portal transforms collaboration,
-                replacing endless email chains with realtime updates, seamless
-                communication, and automated project initiation.
+              {/* Typing Text with Cursor */}
+              <p className="text-lg text-text-primary text-center lg:text-justify leading-relaxed relative z-10 whitespace-pre-wrap">
+                {displayedText}
+                <span className="animate-pulse inline-block w-[2px] h-5 bg-text-primary ml-1 align-middle"></span>
               </p>
             </motion.div>
           </motion.div>
@@ -119,10 +130,7 @@ const WelcomeSection = () => {
             variants={slideInRight}
             transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
           >
-            <motion.div
-              className="relative overflow-hidden rounded-2xl shadow-lg transition-shadow duration-500 flex items-center justify-center py-8 group"
-              whileHover={{}} // ⬅ no scaling / y movement
-            >
+            <motion.div className="relative overflow-hidden rounded-2xl shadow-lg transition-shadow duration-500 flex items-center justify-center py-8 group">
               {/* Just the shadow hover */}
               <Image
                 src={images.HERO_SECTION_IMAGE}
