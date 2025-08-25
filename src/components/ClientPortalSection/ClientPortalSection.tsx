@@ -60,7 +60,7 @@ const ClientPortalSection = () => {
   return (
     <section
       className="bg-[var(--color-primary)] text-[var(--color-text)] py-20 px-6 md:px-16"
-      id="client-portal"
+      id="client"
     >
       {/* Heading */}
       <motion.h2

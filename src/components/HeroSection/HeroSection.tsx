@@ -60,27 +60,32 @@ const HeroSection = () => {
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             <motion.button
-              className="px-6 py-2.5 border border-logo text-logo font-medium rounded-full relative overflow-hidden group"
+              className="px-6 !cursor-pointer py-2.5 border border-logo text-logo font-medium rounded-full relative overflow-hidden group"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 8px 20px rgba(211, 187, 68, 0.4)",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <span className="relative z-10">Explore Our Client Portal</span>
+              <span className="relative z-10">
+                <a href="#client">Explore Our Client Portal</a>
+              </span>
               {/* shimmer */}
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
             </motion.button>
 
             <motion.button
-              className="px-6 py-2.5 border border-logo text-logo font-medium rounded-full relative overflow-hidden group"
+              className="px-6 py-2.5 cursor-pointer border border-logo text-logo font-medium rounded-full relative overflow-hidden group"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0px 8px 20px rgba(211, 187, 68, 0.4)",
               }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <span className="relative z-10">View Our Services</span>
+              <span className="relative z-10">
+                {" "}
+                <a href="#services">View Our Services</a>
+              </span>
               {/* shimmer */}
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
             </motion.button>

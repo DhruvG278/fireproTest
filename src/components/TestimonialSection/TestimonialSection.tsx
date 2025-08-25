@@ -7,6 +7,7 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { BorderBeam } from "../lightswind/border-beam";
+import { images } from "@/utils/images";
 
 const testimonials = [
   {
@@ -14,21 +15,21 @@ const testimonials = [
       "ProTech's client portal replaced our messy email threads with real-time updates and chats. It's a game-changer for managing our mega-projects.",
     author: "Senior Project Manager",
     company: "Major General Contractor",
-    image: "/avatars/manager.jpg", // ✅ your testimonial avatar/logo
+    image: images.PROFILE3, // ✅ your testimonial avatar/logo
   },
   {
     quote:
       "Outsourcing to Pro Tech CDS eliminates our in-house design costs, and their portal makes approvals and site visits effortless. We're proud to be partners.",
     author: "Director of Engineering",
     company: "National Construction Firm",
-    image: "/avatars/director.jpg",
+    image: images.PROFILE2,
   },
   {
     quote:
       "Competitors can't match ProTech's Al-driven designs and portal efficiency. Their submittals get approved faster than anyone else's.",
     author: "Architect",
     company: "Leading Design Group",
-    image: "/avatars/architect.jpg",
+    image: images.PROFILE1,
   },
 ];
 
@@ -57,7 +58,7 @@ const TestimonialsCarousel = () => {
   return (
     <section className="relative py-16 sm:py-20">
       {/* Background with overlay */}
-      <div className="absolute inset-0 bg-[url('/futuristic-building.jpg')] bg-cover bg-center" />
+      <div className="absolute inset-0 bg-[url('/assets/building.jpg')] bg-cover bg-center" />
       <div className="absolute inset-0 bg-black/70" />
 
       {/* Content */}
@@ -81,7 +82,7 @@ const TestimonialsCarousel = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -30 }}
               transition={{ duration: 0.7 }}
-              className="px-2 sm:px-4"
+              className="px-2 sm:px-4 lg:py-4"
             >
               <motion.div
                 whileHover={{

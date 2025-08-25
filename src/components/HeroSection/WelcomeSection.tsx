@@ -56,6 +56,7 @@ const WelcomeSection = () => {
   return (
     <motion.section
       ref={ref}
+      id="about"
       className="flex flex-col gap-1 lg:gap-10 p-2 lg:p-8 mt-6 lg:mt-0"
       variants={containerVariants}
       initial="hidden"

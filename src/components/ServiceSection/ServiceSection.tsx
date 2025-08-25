@@ -79,7 +79,10 @@ const Services = () => {
     stiffness: 100,
   };
   return (
-    <section className="relative bg-[var(--color-primary)] text-[var(--color-text-primary)] py-20 px-6 overflow-hidden">
+    <section
+      id={"services"}
+      className="relative bg-[var(--color-primary)] text-[var(--color-text-primary)] py-20 px-6 overflow-hidden"
+    >
       {/* Floating Accent Background */}
       <motion.div
         className="absolute top-20 right-10 w-80 h-80 bg-[var(--color-logo)]/10 rounded-full blur-3xl"

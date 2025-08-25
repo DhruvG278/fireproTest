@@ -6,7 +6,10 @@ import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
 
 const ContactUsSection = () => {
   return (
-    <footer className="bg-[var(--color-primary)] text-[var(--color-text)] pt-20 px-6 md:px-16">
+    <footer
+      id="contact"
+      className="bg-[var(--color-primary)] text-[var(--color-text)] pt-20 px-6 md:px-16"
+    >
       {/* Headline + Subheadline */}
       <div className="text-center max-w-3xl mx-auto mb-12">
         <motion.h2

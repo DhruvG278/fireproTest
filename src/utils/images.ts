@@ -6,4 +6,7 @@ export const images = {
   AI_BRAIN: "/assets/Ai-brain.jpg",
   OUR_STORY: "/assets/our-story.jpg",
   OUR_MiSSION: "/assets/our_mission.jpg",
+  PROFILE1: "/assets/profile1.jpg",
+  PROFILE2: "/assets/profile2.jpg",
+  PROFILE3: "/assets/profile3.jpg",
 };

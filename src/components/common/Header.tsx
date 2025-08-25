@@ -81,14 +81,17 @@ export const Header = () => {
             {/* CTA Button - Desktop */}
             <div className="hidden lg:block">
               <motion.button
-                className="px-6 py-2.5 border border-logo text-logo font-medium rounded-full relative overflow-hidden group"
+                className="px-6 py-2.5 !cursor-pointer border border-logo text-logo font-medium rounded-full relative overflow-hidden group"
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0px 8px 20px rgba(211, 187, 68, 0.4)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
-                <span className="relative z-10">Get a Free Consultation</span>
+                <span className="relative z-10">
+                  {" "}
+                  <a href="#contact">Get a Free Consultation </a>
+                </span>
                 {/* shimmer */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
               </motion.button>
@@ -172,7 +175,7 @@ export const Header = () => {
 
             {/* Mobile Menu Footer */}
             <div
-              className="p-6 border-t opacity-0"
+              className="p-6 border-t opacity-0 w-full flex items-center justify-center"
               style={{
                 animation: isMenuOpen
                   ? "fadeInUp 0.8s ease-out 0.5s forwards"
@@ -180,7 +183,14 @@ export const Header = () => {
               }}
             >
               <button className="px-6 py-2.5 border border-logo text-logo cursor-pointer font-medium rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200">
-                Get a Free Consultation
+                <a
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                  href="#contact"
+                >
+                  Get a Free Consultation
+                </a>
               </button>
             </div>
           </div>
