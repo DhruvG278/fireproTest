@@ -6,7 +6,6 @@ import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { BorderBeam } from "../lightswind/border-beam";
 import { images } from "@/utils/images";
 
 const testimonials = [
