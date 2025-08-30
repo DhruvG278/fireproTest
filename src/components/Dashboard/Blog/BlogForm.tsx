@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BlogType } from "@/types/blog"; // assuming you keep interface in types
 import { Input } from "@/components/common/Input";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import ThemedDatePicker from "@/components/common/DatePicker";
+
+// ✅ dynamically import ReactQuill (no SSR)
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 const BlogCreateForm = () => {
   const router = useRouter();
