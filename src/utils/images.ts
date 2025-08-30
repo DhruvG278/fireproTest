@@ -9,4 +9,5 @@ export const images = {
   PROFILE1: "/assets/profile1.jpg",
   PROFILE2: "/assets/profile2.jpg",
   PROFILE3: "/assets/profile3.jpg",
+  BLOG1: "/assets/blog1.jpg",
 };

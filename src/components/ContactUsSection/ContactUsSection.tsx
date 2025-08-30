@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
 
 const ContactUsSection = () => {
   return (
-    <footer
+    <section
       id="contact"
       className="bg-[var(--color-primary)] text-[var(--color-text)] pt-20 px-6 md:px-16"
     >
@@ -134,7 +134,7 @@ const ContactUsSection = () => {
         </motion.div>
       </div>
 
-      {/* Site-wide Footer */}
+      {/* Site-wide section */}
       <div className="border-t border-[#222] pt-8 pb-6 text-center space-y-4">
         <div className="flex flex-wrap justify-center gap-6 text-gray-400 text-sm">
           <a href="#">Home</a>
@@ -155,7 +155,7 @@ const ContactUsSection = () => {
           Complete Design System
         </p>
       </div>
-    </footer>
+    </section>
   );
 };
 

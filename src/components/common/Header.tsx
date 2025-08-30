@@ -5,10 +5,14 @@ import { X, Menu } from "lucide-react";
 import { images } from "@/utils/images";
 
 import { motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentSection, setCurrentSection] = useState("home");
+  const pathname = usePathname();
+  const navigate = useRouter();
 
   // Handle scroll effect for header
   useEffect(() => {
@@ -31,16 +35,53 @@ export const Header = () => {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const sections = document.querySelectorAll("section[id]"); // assuming all sections have id="home", "about", etc.
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setCurrentSection(entry.target.id); // set the id of the visible section
+          }
+        });
+      },
+      {
+        threshold: 0.4, // adjust: section is "active" when ~40% visible
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, []);
+
+  // For contact Section
+  useEffect(() => {
+    if (pathname.includes("blogs")) {
+      setCurrentSection("blogs");
+    }
+  }, []);
+
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Client Portal", href: "#client" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "#home", key: "home" },
+    { name: "About", href: "#about", key: "about" },
+    { name: "Services", href: "#services", key: "service" },
+    { name: "Client Portal", href: "#client", key: "client" },
+    { name: "Contact", href: "#contact", key: "contact" },
+    { name: "Blogs", href: "/blogs", key: "blogs" },
   ];
 
   const handleNavClick = () => {
     setIsMenuOpen(false);
+  };
+  const handleLinkClick = (key: string) => {
+    if (currentSection === "blogs" && key !== "blogs") {
+      navigate.push(`/#${key}`);
+    }
   };
 
   return (
@@ -68,10 +109,19 @@ export const Header = () => {
                   <li key={item.name}>
                     <a
                       href={item.href}
-                      className="text-white hover:text-logo text-2xl font-semibold transition-colors duration-200 relative group"
+                      onClick={() => {
+                        handleLinkClick(item.key);
+                      }}
+                      className={`${
+                        item.key === currentSection
+                          ? "text-logo underline"
+                          : "text-white"
+                      } hover:text-logo text-2xl font-semibold transition-colors duration-200 relative group`}
                     >
                       {item.name}
-                      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-logo transition-all duration-300 group-hover:w-full"></span>
+                      {item.key !== currentSection && (
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-logo transition-all duration-300 group-hover:w-full"></span>
+                      )}
                     </a>
                   </li>
                 ))}

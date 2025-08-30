@@ -12,7 +12,10 @@ const AboutSection = () => {
   };
 
   return (
-    <section className="bg-[var(--color-primary)] text-[var(--color-text-primary)] px-6 md:px-12 lg:px-20 py-20">
+    <section
+      className="bg-[var(--color-primary)] text-[var(--color-text-primary)] px-6 md:px-12 lg:px-20 py-20"
+      id="about"
+    >
       <motion.div
         className="absolute top-10 left-10 w-72 h-72 rounded-full bg-[var(--color-logo)] opacity-20 blur-3xl"
         animate={{ x: [0, 30, 0], y: [0, -30, 0] }}
