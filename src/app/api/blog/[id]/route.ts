@@ -2,12 +2,11 @@ import { prisma } from "@/lib/primsa";
 import { uploadToS3 } from "@/utils/helper";
 import { NextResponse } from "next/server";
 
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+type Params = Promise<{ id: string }>;
+
+export async function GET(req: Request, context: { params: Params }) {
   try {
-    const { id } = params;
+    const { id } = await context.params;
 
     const blog = await prisma.blog.findUnique({
       where: { id },
