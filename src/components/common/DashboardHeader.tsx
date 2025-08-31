@@ -7,16 +7,14 @@ import { images } from "@/utils/images";
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 
-const outerPages = ["/blogs", "/protechTools"];
-
-export const Header = () => {
+export const DashboardHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [currentSection, setCurrentSection] = useState("home");
   const pathname = usePathname();
   const navigate = useRouter();
 
-  // Handle scroll effect for header
+  // Handle scroll effect for Dashboardheader
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -44,8 +42,7 @@ export const Header = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !outerPages.includes(pathname)) {
-            console.log("Entering section:", entry.target.id);
+          if (entry.isIntersecting) {
             setCurrentSection(entry.target.id); // set the id of the visible section
           }
         });
@@ -67,32 +64,14 @@ export const Header = () => {
     if (pathname.includes("blogs")) {
       setCurrentSection("blogs");
     }
-    if (pathname.includes("protechTools")) {
-      setCurrentSection("tools");
-    }
   }, []);
 
-  const navItems = [
-    { name: "Home", href: "#home", key: "home" },
-    { name: "About", href: "#about", key: "about" },
-    { name: "Services", href: "#services", key: "services" },
-    { name: "Client Portal", href: "#client", key: "client" },
-    { name: "Contact", href: "#contact", key: "contact" },
-    { name: "Blogs", href: "/blogs", key: "blogs" },
-    { name: "Tools", href: "/protechTools", key: "tools" },
-  ];
+  const navItems: any[] = [];
 
   const handleNavClick = () => {
     setIsMenuOpen(false);
   };
-  const handleLinkClick = (key: string) => {
-    if (
-      ["blogs", "tools"].includes(currentSection) &&
-      !["blogs", "tools"].includes(key)
-    ) {
-      navigate.push(`/#${key}`);
-    }
-  };
+  const handleLinkClick = (key: string) => {};
 
   return (
     <>
@@ -146,16 +125,17 @@ export const Header = () => {
                   scale: 1.05,
                   boxShadow: "0px 8px 20px rgba(211, 187, 68, 0.4)",
                 }}
-                onClick={() => {
-                  if (currentSection === "blogs") {
-                    navigate.push("/#contact");
-                  }
-                }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
                 <span className="relative z-10">
                   {" "}
-                  <a href="#contact">Get a Free Consultation </a>
+                  <a
+                    onClick={() => {
+                      navigate.push("/dashboard/blog/create");
+                    }}
+                  >
+                    Create Blog{" "}
+                  </a>
                 </span>
                 {/* shimmer */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
@@ -250,14 +230,10 @@ export const Header = () => {
               <button className="px-6 py-2.5 border border-logo text-logo cursor-pointer font-medium rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200">
                 <a
                   onClick={() => {
-                    setIsMenuOpen(false);
-                    if (currentSection === "blogs") {
-                      navigate.push("/#contact");
-                    }
+                    navigate.push("/dashboard/blog/create");
                   }}
-                  href="#contact"
                 >
-                  Get a Free Consultation
+                  Create Blog
                 </a>
               </button>
             </div>

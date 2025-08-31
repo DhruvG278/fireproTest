@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id         String        @id @default(uuid())
+  title      String
+  thumbnail  String?       // optional
+  date       DateTime
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  contents   BlogContent[]
+}
+
+model BlogContent {
+  id         String   @id @default(uuid())
+  type       ContentType
+  value      String   @db.Text  // paragraph = HTML, image/video = URL db.text=store long text
+  orderIndex Int
+  blog       Blog     @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId     String
+}
+
+enum ContentType {
+  paragraph
+  image
+  video
+}

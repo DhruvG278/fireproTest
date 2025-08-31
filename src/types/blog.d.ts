@@ -1,9 +1,10 @@
 export interface BlogType {
-  id: string;
+  id?: string;
   title: string;
-  thumbnail?: string;
+  thumbnail?: any;
   date: string;
   content: {
+    id?: string;
     type: "paragraph" | "image" | "video" | "list";
     value?: any;
   }[];

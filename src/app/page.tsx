@@ -13,17 +13,19 @@ import WhyClientsSection from "@/components/WhyClientsSection/WhyClientSection";
 import ContactUsSection from "@/components/ContactUsSection/ContactUsSection";
 export default function Home() {
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div className="w-full h-full">
       <Header />
-      <HeroSection />
-      <KeyFeaturesSection />
-      <TestimonialsCarousel />
-      <AboutUs />
-      <WhatSetsUsApart />
-      <Services />
-      <ClientPortalSection />
-      <WhyClientsSection />
-      <ContactUsSection />
+      <div className="w-full h-full overflow-hidden">
+        <HeroSection />
+        <KeyFeaturesSection />
+        <TestimonialsCarousel />
+        <AboutUs />
+        <WhatSetsUsApart />
+        <Services />
+        <ClientPortalSection />
+        <WhyClientsSection />
+        <ContactUsSection />
+      </div>
     </div>
   );
 }

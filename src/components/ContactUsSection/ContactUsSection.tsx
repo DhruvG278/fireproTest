@@ -137,13 +137,13 @@ const ContactUsSection = () => {
       {/* Site-wide section */}
       <div className="border-t border-[#222] pt-8 pb-6 text-center space-y-4">
         <div className="flex flex-wrap justify-center gap-6 text-gray-400 text-sm">
-          <a href="#">Home</a>
-          <a href="#">About Us</a>
-          <a href="#">Services</a>
-          <a href="#">Client Portal</a>
-          <a href="#">Contact</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+          <a href="#home">Home</a>
+          <a href="#about">About Us</a>
+          <a href="#services">Services</a>
+          <a href="#client-portal">Client Portal</a>
+          <a href="#contact">Contact</a>
+          <a href="#privacy-policy">Privacy Policy</a>
+          <a href="#terms-of-service">Terms of Service</a>
         </div>
 
         <p className="text-gray-500 text-xs mt-4">

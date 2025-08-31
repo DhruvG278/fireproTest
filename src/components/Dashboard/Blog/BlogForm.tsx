@@ -6,20 +6,28 @@ import { Input } from "@/components/common/Input";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import ThemedDatePicker from "@/components/common/DatePicker";
+import DOMPurify from "dompurify";
+import axios from "axios";
 
 // ✅ dynamically import ReactQuill (no SSR)
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
-const BlogCreateForm = () => {
+const BlogCreateForm = ({
+  isCreate,
+  blogData,
+}: {
+  isCreate: boolean;
+  blogData?: BlogType;
+}) => {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
   const [blog, setBlog] = useState<Omit<BlogType, "id">>({
-    title: "",
-    thumbnail: "",
-    date: "", // user will set this
-    content: [],
+    title: blogData?.title ?? "",
+    thumbnail: blogData?.thumbnail ?? "",
+    date: blogData?.date ?? "",
+    content: blogData?.content ?? [],
   });
 
   const [error, setError] = useState("");
@@ -57,29 +65,81 @@ const BlogCreateForm = () => {
     }
     setError("");
 
-    console.log("Blog submitted:", blog);
+    try {
+      const formData = new FormData();
+      formData.append("title", blog.title);
+      formData.append("date", blog.date);
 
-    // Example API call (id will be generated in backend)
-    // await axios.post("/api/blogs", blog);
+      // Thumbnail
+      if (blog.thumbnail instanceof File) {
+        formData.append("thumbnail", blog.thumbnail); // file
+      } else if (typeof blog.thumbnail === "string" && blog.thumbnail) {
+        formData.append("thumbnail", blog.thumbnail); // keep existing URL
+      }
 
-    router.push("/blogs"); // Redirect after save
+      // Serialize contents but keep files separate
+      const contentPayload: any[] = [];
+      blog.content.forEach((block, index) => {
+        if (block.type === "image") {
+          if (block.value instanceof File) {
+            // Attach file
+            const key = `content-file-${index}`;
+            formData.append(key, block.value);
+            contentPayload.push({ type: "image", value: key }); // mark reference
+          } else {
+            contentPayload.push({ type: "image", value: block.value }); // existing URL
+          }
+        } else {
+          // paragraph, video, list, etc.
+          contentPayload.push({ type: block.type, value: block.value });
+        }
+      });
+
+      formData.append("contents", JSON.stringify(contentPayload));
+      if (isCreate) {
+        const res = await axios.post("/api/Blog", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        if (!blogData?.id) throw new Error("Blog ID is missing for update");
+        formData.append("id", blogData?.id);
+        const res = await axios.put(`/api/blog/${blogData?.id}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      }
+      // console.log("Blog saved:", result);
+
+      router.push("/dashboard"); // redirect after save
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save blog");
+    }
   };
 
   return (
     <div className="max-w-3xl mx-auto py-10 px-4 flex flex-col gap-5">
-      <h2 className="text-2xl font-bold mb-6 text-logo">Create Blog</h2>
+      <h2 className="text-2xl font-bold mb-6 text-logo">
+        {isCreate ? "Create" : "Edit"} Blog
+      </h2>
 
       {/* Blog Title */}
-      <Input
-        type="text"
-        placeholder="Blog Title"
-        value={blog.title}
-        onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-        className="w-full border p-3 rounded mb-4"
-      />
+      <div>
+        <Input
+          type="text"
+          placeholder="Title"
+          label="Blog Title"
+          value={blog.title}
+          onChange={(e) => setBlog({ ...blog, title: e.target.value })}
+          className="w-full border p-3 rounded mb-4"
+        />
+      </div>
 
       <div className="w-full">
-        <p className="text-text-primary">Blog date</p>
+        <p className="text-text-primary mb-1">Blog date</p>
         {/* Blog Date */}
         <ThemedDatePicker
           value={blog.date ? new Date(blog.date) : null}

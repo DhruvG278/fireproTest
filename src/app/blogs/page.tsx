@@ -1,36 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { images } from "@/utils/images";
-
-interface Blog {
-  id: number;
-  title: string;
-  image: string;
-  date: string;
-}
-
-const blogs: Blog[] = [
-  {
-    id: 1,
-    title:
-      "ProTech Insights: AI-Enhanced Fire Protection for TSMC Arizona Fab Expansion",
-    image: images.BLOG1,
-    date: "2025-08-25",
-  },
-  {
-    id: 2,
-    title: "How AI Optimizes Fire Protection Design in Hazardous Environments",
-    image: images.BLOG1,
-    date: "2025-07-10",
-  },
-];
+import { blogs } from "@/dummyData/data";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function BlogPage() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
+  const [currentPage, setCurrentPage] = useState(1);
+  const navigation = useRouter();
+  const [allBlogs, setAllBlogs] = useState(blogs);
 
-  const filteredBlogs = blogs
+  const blogsPerPage = 12;
+
+  // filter + sort
+  const filteredBlogs = allBlogs
     .filter((blog) => blog.title.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => {
       if (sort === "newest")
@@ -42,6 +28,21 @@ export default function BlogPage() {
       return 0;
     });
 
+  // pagination
+  const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
+  const startIndex = (currentPage - 1) * blogsPerPage;
+  const currentBlogs = filteredBlogs.slice(
+    startIndex,
+    startIndex + blogsPerPage
+  );
+  const fetchAllBlogs = async () => {
+    try {
+      const response = await axios.get("/api/blog");
+      setAllBlogs(response.data.blogs);
+    } catch (error) {
+      toast.error("Failed to fetch blogs");
+    }
+  };
   return (
     <div className="min-h-screen bg-[var(--color-primary)] text-[var(--color-text)] px-6 py-12 flex flex-col items-center">
       {/* Title */}
@@ -51,24 +52,28 @@ export default function BlogPage() {
         transition={{ duration: 0.8 }}
         className="text-4xl md:text-6xl font-extrabold text-[var(--color-logo)] mb-12 text-center tracking-wide"
       >
-        ProTech Insights Blog
+        ProTech Insights
       </motion.h1>
 
       {/* Search + Sort */}
       <div className="w-full flex flex-col md:flex-row md:justify-between md:items-center gap-6 mb-12 max-w-6xl">
-        {/* Search Bar */}
         <input
           type="text"
           placeholder="🔍 Search blogs..."
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setCurrentPage(1); // reset page on search
+          }}
           className="w-full md:w-1/2 px-5 py-3 rounded-lg bg-[#111]/70 border border-[var(--color-logo)] text-[var(--color-text)] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-logo)] transition"
         />
 
-        {/* Sort Dropdown */}
         <select
           value={sort}
-          onChange={(e) => setSort(e.target.value)}
+          onChange={(e) => {
+            setSort(e.target.value);
+            setCurrentPage(1); // reset page on sort
+          }}
           className="px-5 py-3 rounded-lg border border-[var(--color-logo)] bg-[#111]/70 text-[var(--color-text)] focus:outline-none focus:ring-2 focus:ring-[var(--color-logo)] cursor-pointer"
         >
           <option value="newest">📅 Date: Newest</option>
@@ -77,21 +82,21 @@ export default function BlogPage() {
           <option value="za">🔤 Title: Z → A</option>
         </select>
       </div>
-
       {/* Blog Grid */}
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl w-full">
-        {filteredBlogs.map((blog, index) => (
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 max-w-7xl w-full">
+        {currentBlogs.map((blog, index) => (
           <motion.div
             key={blog.id}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2, duration: 0.6 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
             whileHover={{ scale: 1.03 }}
+            onClick={() => navigation.push(`/blogs/${blog.id}`)}
             className="bg-[#111]/80 border border-[var(--color-logo)] shadow-lg rounded-2xl overflow-hidden hover:shadow-[0_0_25px_var(--color-logo)] transition-all duration-300 cursor-pointer"
           >
             <div className="overflow-hidden">
               <motion.img
-                src={blog.image}
+                src={blog.thumbnail}
                 alt={blog.title}
                 className="w-full h-52 object-cover rounded-t-2xl"
                 whileHover={{ scale: 1.1 }}
@@ -113,6 +118,40 @@ export default function BlogPage() {
           </motion.div>
         ))}
       </div>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center gap-3 mt-12">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+            className="px-4 py-2 rounded-lg border border-[var(--color-logo)] disabled:opacity-40"
+          >
+            ⬅ Prev
+          </button>
+
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-4 py-2 rounded-lg border border-[var(--color-logo)] ${
+                currentPage === i + 1
+                  ? "bg-[var(--color-logo)] text-black font-bold"
+                  : "bg-[#111]/70 text-[var(--color-text)]"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+            className="px-4 py-2 rounded-lg border border-[var(--color-logo)] disabled:opacity-40"
+          >
+            Next ➡
+          </button>
+        </div>
+      )}
     </div>
   );
 }

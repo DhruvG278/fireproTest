@@ -3,9 +3,15 @@ import { blogs } from "@/dummyData/data";
 import { useParams } from "next/navigation";
 import React from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import toast from "react-hot-toast";
+import Spinner from "@/components/common/Spinner";
+import DOMPurify from "isomorphic-dompurify";
 
 const SingleBlogPage = () => {
   const { id } = useParams();
+  const [currentBlog, setCurrentBlog] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
   const blog = blogs.find((b) => String(b.id) === String(id)); // ensure type-safe matching
   if (!blog)
     return (
@@ -13,6 +19,18 @@ const SingleBlogPage = () => {
         Blog not found
       </p>
     );
+
+  const fetchSingleBlog = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`/api/blog/${id}`);
+      setCurrentBlog(response.data.blog);
+    } catch (error) {
+      toast.error("Failed to fetch blog");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Variants
   const fadeUp = {
@@ -37,16 +55,21 @@ const SingleBlogPage = () => {
     switch (block.type) {
       case "paragraph":
         return (
-          <motion.p
+          <motion.div
             key={index}
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="indent-8 text-lg md:text-xl leading-relaxed text-gray-300 tracking-wide"
-          >
-            {block.value}
-          </motion.p>
+            viewport={{ once: true, amount: 0.001 }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(block.value),
+            }}
+            className=" text-lg md:text-lg leading-relaxed tracking-wide [&>h1]:text-3xl [&>h1]:font-bold 
+              [&>h2]:text-2xl [&>h2]:font-semibold
+              [&>h3]:text-xl [&>h3]:font-medium
+              [&>ol]:list-disc [&>ol]:mb-2  [&>p]:text-text-primary
+              [&>ul]:list-disc [&>ul]:ml-6 [&>li]:!text-lg"
+          />
         );
 
       case "image":
@@ -104,6 +127,9 @@ const SingleBlogPage = () => {
         return null;
     }
   };
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="min-h-screen bg-[var(--color-primary)] text-[var(--color-text)] px-6 py-12">
@@ -136,7 +162,7 @@ const SingleBlogPage = () => {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             className="w-full h-auto rounded-3xl shadow-2xl mb-12 hover:shadow-[0_0_25px_var(--color-logo)] hover:scale-[1.01] transition-all duration-500"
           />
         )}
