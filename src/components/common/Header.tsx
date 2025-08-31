@@ -73,7 +73,7 @@ export const Header = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home", key: "home" },
+    { name: "Home", href: "#", key: "home" },
     { name: "About", href: "#about", key: "about" },
     { name: "Services", href: "#services", key: "services" },
     { name: "Client Portal", href: "#client", key: "client" },
@@ -90,7 +90,11 @@ export const Header = () => {
       ["blogs", "tools"].includes(currentSection) &&
       !["blogs", "tools"].includes(key)
     ) {
-      navigate.push(`/#${key}`);
+      if (key === "home") {
+        navigate.push(`/`);
+      } else {
+        navigate.push(`/#${key}`);
+      }
     }
   };
 
