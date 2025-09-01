@@ -1,10 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Linkedin, Twitter } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 const ContactUsSection = () => {
+  const navigate = useRouter();
+  const [currentSection, setCurrentSection] = React.useState("");
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname.includes("blogs")) {
+      setCurrentSection("blogs");
+    } else if (pathname.includes("tools")) {
+      setCurrentSection("tools");
+    }
+  }, []);
+  const handleNavigation = (key: string) => {
+    if (
+      ["blogs", "tools"].includes(currentSection) &&
+      !["blogs", "tools", "contact"].includes(key)
+    ) {
+      if (key === "home") {
+        navigate.push(`/`);
+      } else {
+        navigate.push(`/#${key}`);
+      }
+    }
+  };
   return (
     <section
       id="contact"
@@ -137,11 +160,46 @@ const ContactUsSection = () => {
       {/* Site-wide section */}
       <div className="border-t border-[#222] pt-8 pb-6 text-center space-y-4">
         <div className="flex flex-wrap justify-center gap-6 text-gray-400 text-sm">
-          <a href="#home">Home</a>
-          <a href="#about">About Us</a>
-          <a href="#services">Services</a>
-          <a href="#client-portal">Client Portal</a>
-          <a href="#contact">Contact</a>
+          <a
+            href="#home"
+            onClick={() => {
+              handleNavigation("home");
+            }}
+          >
+            Home
+          </a>
+          <a
+            href="#about"
+            onClick={() => {
+              handleNavigation("about");
+            }}
+          >
+            About Us
+          </a>
+          <a
+            href="#services"
+            onClick={() => {
+              handleNavigation("services");
+            }}
+          >
+            Services
+          </a>
+          <a
+            href="#client-portal"
+            onClick={() => {
+              handleNavigation("client");
+            }}
+          >
+            Client Portal
+          </a>
+          <a
+            href="#contact"
+            onClick={() => {
+              handleNavigation("contact");
+            }}
+          >
+            Contact
+          </a>
           <a href="#privacy-policy">Privacy Policy</a>
           <a href="#terms-of-service">Terms of Service</a>
         </div>
