@@ -88,7 +88,7 @@ export const Header = () => {
   const handleLinkClick = (key: string) => {
     if (
       ["blogs", "tools"].includes(currentSection) &&
-      !["blogs", "tools"].includes(key)
+      !["blogs", "tools", "contact"].includes(key)
     ) {
       if (key === "home") {
         navigate.push(`/`);
