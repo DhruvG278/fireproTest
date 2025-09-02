@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Spinner from "@/components/common/Spinner";
 import DOMPurify from "isomorphic-dompurify";
+import { cleanQuillTableHtml } from "@/utils/helper";
 
 const SingleBlogPage = () => {
   const { id } = useParams();
@@ -54,6 +55,7 @@ const SingleBlogPage = () => {
   const renderContent = (block: any, index: number) => {
     switch (block.type) {
       case "paragraph":
+        console.log(cleanQuillTableHtml(block.value));
         return (
           <motion.div
             key={index}
@@ -130,7 +132,6 @@ const SingleBlogPage = () => {
   if (loading) {
     return <Spinner />;
   }
-
   return (
     <div className="min-h-screen bg-[var(--color-primary)] text-[var(--color-text)] px-6 py-12">
       <section className="w-full max-w-4xl mx-auto">

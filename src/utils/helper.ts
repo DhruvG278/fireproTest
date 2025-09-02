@@ -28,3 +28,39 @@ export async function uploadToS3(file: File): Promise<string> {
 export const generateUniqueId = (): string => {
   return uuidv7();
 };
+// TypeScript - Browser / React
+export function cleanQuillTableHtml(html: string): string {
+  // 1) Decode escaped table-like tags (&lt;table ... &gt; -> <table ...>)
+  html = html.replace(
+    /&lt;(\/?)(table|tr|td|th|thead|tbody|tfoot)([^&]*)&gt;/gi,
+    (_m, slash, tag, attrs) => {
+      const decodedAttrs = (attrs || "")
+        .replace(/&quot;/g, '"')
+        .replace(/&amp;/g, "&");
+      return `<${slash}${tag}${decodedAttrs}>`;
+    }
+  );
+
+  // 2) Parse and unwrap <p> that wrap (or contain) table elements
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  const tableSelectors = "table, tr, td, th, thead, tbody, tfoot";
+
+  // Convert NodeList -> Array to avoid live-list issues
+  Array.from(doc.querySelectorAll("p")).forEach((p) => {
+    // if this <p> contains any table-like element, unwrap it (move children out)
+    if (p.querySelector(tableSelectors)) {
+      while (p.firstChild) {
+        p.parentNode!.insertBefore(p.firstChild, p);
+      }
+      p.parentNode!.removeChild(p);
+    }
+  });
+
+  // Remove leftover empty <p> (only whitespace / <br>)
+  Array.from(doc.querySelectorAll("p")).forEach((p) => {
+    if (!p.textContent?.trim()) p.remove();
+  });
+
+  return doc.body.innerHTML;
+}

@@ -128,7 +128,6 @@ export default function BlogPage() {
           >
             ⬅ Prev
           </button>
-
           {[...Array(totalPages)].map((_, i) => (
             <button
               key={i}

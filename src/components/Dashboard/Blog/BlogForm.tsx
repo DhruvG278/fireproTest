@@ -64,60 +64,60 @@ const BlogCreateForm = ({
       return;
     }
     setError("");
+    console.log(blog);
+    // try {
+    //   const formData = new FormData();
+    //   formData.append("title", blog.title);
+    //   formData.append("date", blog.date);
 
-    try {
-      const formData = new FormData();
-      formData.append("title", blog.title);
-      formData.append("date", blog.date);
+    //   // Thumbnail
+    //   if (blog.thumbnail instanceof File) {
+    //     formData.append("thumbnail", blog.thumbnail); // file
+    //   } else if (typeof blog.thumbnail === "string" && blog.thumbnail) {
+    //     formData.append("thumbnail", blog.thumbnail); // keep existing URL
+    //   }
 
-      // Thumbnail
-      if (blog.thumbnail instanceof File) {
-        formData.append("thumbnail", blog.thumbnail); // file
-      } else if (typeof blog.thumbnail === "string" && blog.thumbnail) {
-        formData.append("thumbnail", blog.thumbnail); // keep existing URL
-      }
+    //   // Serialize contents but keep files separate
+    //   const contentPayload: any[] = [];
+    //   blog.content.forEach((block, index) => {
+    //     if (block.type === "image") {
+    //       if (block.value instanceof File) {
+    //         // Attach file
+    //         const key = `content-file-${index}`;
+    //         formData.append(key, block.value);
+    //         contentPayload.push({ type: "image", value: key }); // mark reference
+    //       } else {
+    //         contentPayload.push({ type: "image", value: block.value }); // existing URL
+    //       }
+    //     } else {
+    //       // paragraph, video, list, etc.
+    //       contentPayload.push({ type: block.type, value: block.value });
+    //     }
+    //   });
 
-      // Serialize contents but keep files separate
-      const contentPayload: any[] = [];
-      blog.content.forEach((block, index) => {
-        if (block.type === "image") {
-          if (block.value instanceof File) {
-            // Attach file
-            const key = `content-file-${index}`;
-            formData.append(key, block.value);
-            contentPayload.push({ type: "image", value: key }); // mark reference
-          } else {
-            contentPayload.push({ type: "image", value: block.value }); // existing URL
-          }
-        } else {
-          // paragraph, video, list, etc.
-          contentPayload.push({ type: block.type, value: block.value });
-        }
-      });
+    //   formData.append("contents", JSON.stringify(contentPayload));
+    //   if (isCreate) {
+    //     const res = await axios.post("/api/Blog", formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     });
+    //   } else {
+    //     if (!blogData?.id) throw new Error("Blog ID is missing for update");
+    //     formData.append("id", blogData?.id);
+    //     const res = await axios.put(`/api/blog/${blogData?.id}`, formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     });
+    //   }
+    //   // console.log("Blog saved:", result);
 
-      formData.append("contents", JSON.stringify(contentPayload));
-      if (isCreate) {
-        const res = await axios.post("/api/Blog", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      } else {
-        if (!blogData?.id) throw new Error("Blog ID is missing for update");
-        formData.append("id", blogData?.id);
-        const res = await axios.put(`/api/blog/${blogData?.id}`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      }
-      // console.log("Blog saved:", result);
-
-      router.push("/dashboard"); // redirect after save
-    } catch (err) {
-      console.error(err);
-      setError("Failed to save blog");
-    }
+    //   router.push("/dashboard"); // redirect after save
+    // } catch (err) {
+    //   console.error(err);
+    //   setError("Failed to save blog");
+    // }
   };
 
   return (

@@ -14,12 +14,14 @@ const ContactUsSection = () => {
       setCurrentSection("blogs");
     } else if (pathname.includes("tools")) {
       setCurrentSection("tools");
+    } else if (pathname.includes("policy")) {
+      setCurrentSection("policy");
     }
   }, []);
   const handleNavigation = (key: string) => {
     if (
-      ["blogs", "tools"].includes(currentSection) &&
-      !["blogs", "tools", "contact"].includes(key)
+      ["blogs", "tools", "policy"].includes(currentSection) &&
+      !["blogs", "tools", "contact", "policy"].includes(key)
     ) {
       if (key === "home") {
         navigate.push(`/`);
@@ -200,8 +202,12 @@ const ContactUsSection = () => {
           >
             Contact
           </a>
-          <a href="#privacy-policy">Privacy Policy</a>
-          <a href="#terms-of-service">Terms of Service</a>
+          <a target="_blank" href="/policy/privacy-policy">
+            Privacy Policy
+          </a>
+          <a target="_blank" href="/policy/tnc">
+            Terms of Service
+          </a>
         </div>
 
         <p className="text-gray-500 text-xs mt-4">
