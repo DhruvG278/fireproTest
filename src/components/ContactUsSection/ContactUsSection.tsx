@@ -12,7 +12,7 @@ const ContactUsSection = () => {
   useEffect(() => {
     if (pathname.includes("blogs")) {
       setCurrentSection("blogs");
-    } else if (pathname.includes("tools")) {
+    } else if (pathname.includes("protech-software")) {
       setCurrentSection("tools");
     } else if (pathname.includes("policy")) {
       setCurrentSection("policy");

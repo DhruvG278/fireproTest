@@ -67,7 +67,7 @@ export const Header = () => {
     if (pathname.includes("blogs")) {
       setCurrentSection("blogs");
     }
-    if (pathname.includes("protechTools")) {
+    if (pathname.includes("protech-software")) {
       setCurrentSection("tools");
     }
   }, []);
@@ -78,8 +78,8 @@ export const Header = () => {
     { name: "Services", href: "#services", key: "services" },
     { name: "Client Portal", href: "#client", key: "client" },
     { name: "Contact", href: "#contact", key: "contact" },
-    { name: "Blogs", href: "/blogs", key: "blogs" },
-    { name: "Tools", href: "/protechTools", key: "tools" },
+    { name: "Blog", href: "/blogs", key: "blogs" },
+    { name: "Software", href: "/protech-software", key: "tools" },
   ];
 
   const handleNavClick = () => {
