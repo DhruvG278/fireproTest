@@ -14,7 +14,7 @@ import ContactUsSection from "@/components/ContactUsSection/ContactUsSection";
 export default function Home() {
   return (
     <div className="w-full h-full">
-      <Header />
+      {/* <Header /> */}
       <div className="w-full h-full overflow-hidden">
         <HeroSection />
         <KeyFeaturesSection />

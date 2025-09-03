@@ -1,6 +1,7 @@
 export const images = {
   HERO_SECTION_IMAGE: "/assets/Ai_photo_1.png",
   LOGO_SECTION: "/assets/Logo_Text.png",
+  LOGO_SECTION_SOFTWARE: "/assets/ProtechSoftware.png",
   ONLY_LOGO: "/assets/icon.png",
   TEXT_ONLY: "/assets/Text.png",
   AI_BRAIN: "/assets/Ai-brain.jpg",

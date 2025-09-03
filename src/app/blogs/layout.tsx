@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 export default function BlogsLayout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <main>{children}</main>
       <ContactUsSection />
     </div>

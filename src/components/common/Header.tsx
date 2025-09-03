@@ -15,7 +15,9 @@ export const Header = () => {
   const [currentSection, setCurrentSection] = useState("home");
   const pathname = usePathname();
   const navigate = useRouter();
-
+  if (pathname.includes("dashboard")) {
+    return null;
+  }
   // Handle scroll effect for header
   useEffect(() => {
     const handleScroll = () => {
@@ -112,7 +114,14 @@ export const Header = () => {
             {/* Logo */}
             <div className="flex items-center">
               <a href="/" className="flex items-center space-x-2 group">
-                <img src={images.LOGO_SECTION} className="w-[100px] h-auto" />
+                <img
+                  src={
+                    pathname.includes("protech-software")
+                      ? images.LOGO_SECTION_SOFTWARE
+                      : images.LOGO_SECTION
+                  }
+                  className="w-[100px] h-auto"
+                />
               </a>
             </div>
 

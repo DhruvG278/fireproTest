@@ -202,12 +202,8 @@ const ContactUsSection = () => {
           >
             Contact
           </a>
-          <a target="_blank" href="/policy/privacy-policy">
-            Privacy Policy
-          </a>
-          <a target="_blank" href="/policy/tnc">
-            Terms of Service
-          </a>
+          <a href="/policy/privacy-policy">Privacy Policy</a>
+          <a href="/policy/tnc">Terms of Service</a>
         </div>
 
         <p className="text-gray-500 text-xs mt-4">

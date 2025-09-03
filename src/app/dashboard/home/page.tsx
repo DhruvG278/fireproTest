@@ -140,7 +140,7 @@ export default function HomePage() {
       </div>
       {/* Data Table */}
       <div className="overflow-x-auto max-w-6xl mx-auto">
-        <table className="w-full border-collapse rounded-xl overflow-hidden">
+        <table className="w-full border-collapse rounded-xl ">
           <thead>
             <tr className="bg-[var(--color-logo)] text-black text-left">
               <th className="px-6 py-3">ID</th>
