@@ -21,7 +21,7 @@ export const blogs: BlogType[] = [
     title:
       "ProTech Insights: Al-Enhanced Fire Protection for New Dallas Pediatric Campus Revolutionizing Design and Installation Efficiency",
     thumbnail: { url: "/assets/blog2.jpg", type: "image" },
-    date: "2025-09-27T18:30:00.000Z",
+    date: "2025-09-01T18:30:00.000Z",
     content: [
       {
         type: "paragraph",

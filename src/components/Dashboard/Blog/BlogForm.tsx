@@ -6,7 +6,6 @@ import { Input } from "@/components/common/Input";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 import ThemedDatePicker from "@/components/common/DatePicker";
-import DOMPurify from "dompurify";
 import axios from "axios";
 
 // ✅ dynamically import ReactQuill (no SSR)
@@ -25,7 +24,7 @@ const BlogCreateForm = ({
 
   const [blog, setBlog] = useState<Omit<BlogType, "id">>({
     title: blogData?.title ?? "",
-    thumbnail: blogData?.thumbnail ?? "",
+    thumbnail: blogData?.thumbnail,
     date: blogData?.date ?? "",
     content: blogData?.content ?? [],
   });
@@ -63,61 +62,53 @@ const BlogCreateForm = ({
       setError("Date is required");
       return;
     }
+    if (!blog.thumbnail?.url) {
+      setError("Thumbnail is required");
+      return;
+    }
     setError("");
     console.log(blog);
-    // try {
-    //   const formData = new FormData();
-    //   formData.append("title", blog.title);
-    //   formData.append("date", blog.date);
 
-    //   // Thumbnail
-    //   if (blog.thumbnail instanceof File) {
-    //     formData.append("thumbnail", blog.thumbnail); // file
-    //   } else if (typeof blog.thumbnail === "string" && blog.thumbnail) {
-    //     formData.append("thumbnail", blog.thumbnail); // keep existing URL
-    //   }
+    // Example API call structure
+    try {
+      const formData = new FormData();
+      formData.append("title", blog.title);
+      formData.append("date", blog.date);
 
-    //   // Serialize contents but keep files separate
-    //   const contentPayload: any[] = [];
-    //   blog.content.forEach((block, index) => {
-    //     if (block.type === "image") {
-    //       if (block.value instanceof File) {
-    //         // Attach file
-    //         const key = `content-file-${index}`;
-    //         formData.append(key, block.value);
-    //         contentPayload.push({ type: "image", value: key }); // mark reference
-    //       } else {
-    //         contentPayload.push({ type: "image", value: block.value }); // existing URL
-    //       }
-    //     } else {
-    //       // paragraph, video, list, etc.
-    //       contentPayload.push({ type: block.type, value: block.value });
-    //     }
-    //   });
+      // Handle Thumbnail
+      if (blog.thumbnail?.type === "image") {
+        // If it's a base64 string, you may need to handle file separately
+        formData.append("thumbnailType", "image");
+        formData.append("thumbnailUrl", blog.thumbnail.url);
+      } else if (blog.thumbnail?.type === "video") {
+        formData.append("thumbnailType", "video");
+        formData.append("thumbnailUrl", blog.thumbnail.url);
+      }
 
-    //   formData.append("contents", JSON.stringify(contentPayload));
-    //   if (isCreate) {
-    //     const res = await axios.post("/api/Blog", formData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     });
-    //   } else {
-    //     if (!blogData?.id) throw new Error("Blog ID is missing for update");
-    //     formData.append("id", blogData?.id);
-    //     const res = await axios.put(`/api/blog/${blogData?.id}`, formData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     });
-    //   }
-    //   // console.log("Blog saved:", result);
+      // Serialize contents
+      const contentPayload: any[] = blog.content.map((block) => ({
+        type: block.type,
+        value: block.value,
+      }));
+      formData.append("contents", JSON.stringify(contentPayload));
 
-    //   router.push("/dashboard"); // redirect after save
-    // } catch (err) {
-    //   console.error(err);
-    //   setError("Failed to save blog");
-    // }
+      if (isCreate) {
+        await axios.post("/api/blog", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      } else {
+        if (!blogData?.id) throw new Error("Blog ID is missing for update");
+        formData.append("id", blogData?.id);
+        await axios.put(`/api/blog/${blogData?.id}`, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      }
+
+      router.push("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Failed to save blog");
+    }
   };
 
   return (
@@ -138,9 +129,9 @@ const BlogCreateForm = ({
         />
       </div>
 
+      {/* Blog Date */}
       <div className="w-full">
         <p className="text-text-primary mb-1">Blog date</p>
-        {/* Blog Date */}
         <ThemedDatePicker
           value={blog.date ? new Date(blog.date) : null}
           onChange={(date) =>
@@ -150,14 +141,94 @@ const BlogCreateForm = ({
       </div>
 
       {/* Thumbnail */}
-      <Input
-        type="file"
-        label="Thumbnail"
-        onChange={(e) =>
-          setBlog({ ...blog, thumbnail: (e.target as HTMLInputElement).value })
-        }
-        className="w-full border p-3 rounded mb-6"
-      />
+      <div className="w-full text-text-primary">
+        <p className="text-text-primary mb-1">Thumbnail</p>
+        <div className="flex items-center gap-4 mb-3">
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="thumbnailType"
+              value="image"
+              checked={blog.thumbnail?.type === "image"}
+              onChange={() =>
+                setBlog({ ...blog, thumbnail: { type: "image", url: "" } })
+              }
+            />
+            Image
+          </label>
+          <label className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="thumbnailType"
+              value="video"
+              checked={blog.thumbnail?.type === "video"}
+              onChange={() =>
+                setBlog({ ...blog, thumbnail: { type: "video", url: "" } })
+              }
+            />
+            Video
+          </label>
+        </div>
+
+        {/* Image Thumbnail */}
+        {blog.thumbnail?.type === "image" && (
+          <div className="flex flex-col gap-2">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    setBlog({
+                      ...blog,
+                      thumbnail: {
+                        type: "image",
+                        url: reader.result as string,
+                      },
+                    });
+                  };
+                  reader.readAsDataURL(file);
+                }
+              }}
+              className="w-full border p-2 rounded"
+            />
+            {blog.thumbnail?.url && (
+              <img
+                src={blog.thumbnail.url}
+                alt="Thumbnail Preview"
+                className="max-h-60 rounded shadow"
+              />
+            )}
+          </div>
+        )}
+
+        {/* Video Thumbnail */}
+        {blog.thumbnail?.type === "video" && (
+          <div className="flex flex-col gap-2">
+            <input
+              type="text"
+              placeholder="Enter video URL (e.g., YouTube)"
+              value={blog.thumbnail?.url || ""}
+              onChange={(e) =>
+                setBlog({
+                  ...blog,
+                  thumbnail: { type: "video", url: e.target.value },
+                })
+              }
+              className="w-full border p-2 rounded"
+            />
+            {blog.thumbnail?.url && (
+              <iframe
+                src={blog.thumbnail.url.replace("watch?v=", "embed/")}
+                className="w-full aspect-video rounded"
+                allowFullScreen
+              />
+            )}
+          </div>
+        )}
+      </div>
 
       {/* Content Blocks */}
       <div className="space-y-4">

@@ -163,7 +163,11 @@ export default function HomePage() {
                   <td className="px-6 py-4">{blog.id}</td>
                   <td className="px-6 py-4">
                     <img
-                      src={blog.thumbnail}
+                      src={
+                        blog.thumbnail?.type === "image"
+                          ? blog.thumbnail.url
+                          : blog.thumbnail?.thumbnail
+                      }
                       alt={blog.title}
                       className="w-16 h-12 object-cover rounded-md"
                     />
