@@ -5,6 +5,7 @@ import { blogs } from "@/dummyData/data";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { ThumbnailType } from "@/types/blog";
 
 export default function BlogPage() {
   const [search, setSearch] = useState("");
@@ -43,6 +44,32 @@ export default function BlogPage() {
       toast.error("Failed to fetch blogs");
     }
   };
+
+  const renderBlogThumbnail = (data: ThumbnailType) => {
+    if (data.type === "image") {
+      return (
+        <motion.img
+          src={data.url}
+          alt={data.url}
+          className="w-full h-52 object-cover rounded-t-2xl"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.5 }}
+        />
+      );
+    }
+    if (data.type === "video") {
+      return (
+        <motion.img
+          src={data.thumbnail}
+          alt={data.thumbnail}
+          className="w-full h-52 object-cover rounded-t-2xl"
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.5 }}
+        />
+      );
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[var(--color-primary)] text-[var(--color-text)] px-6 py-12 flex flex-col items-center">
       {/* Title */}
@@ -95,13 +122,7 @@ export default function BlogPage() {
             className="bg-[#111]/80 border border-[var(--color-logo)] shadow-lg rounded-2xl overflow-hidden hover:shadow-[0_0_25px_var(--color-logo)] transition-all duration-300 cursor-pointer"
           >
             <div className="overflow-hidden">
-              <motion.img
-                src={blog.thumbnail}
-                alt={blog.title}
-                className="w-full h-52 object-cover rounded-t-2xl"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.5 }}
-              />
+              {renderBlogThumbnail(blog.thumbnail!)}
             </div>
             <div className="p-6">
               <h2 className="text-xl font-semibold text-[var(--color-logo)] mb-2 line-clamp-2">

@@ -7,7 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Spinner from "@/components/common/Spinner";
 import DOMPurify from "isomorphic-dompurify";
-import { cleanQuillTableHtml } from "@/utils/helper";
+import { ThumbnailType } from "@/types/blog";
 
 const SingleBlogPage = () => {
   const { id } = useParams();
@@ -51,11 +51,38 @@ const SingleBlogPage = () => {
       transition: { duration: 0.7, ease: "easeOut" } as any,
     },
   };
+  const renderBlogThumbnail = (data: ThumbnailType) => {
+    if (data.type === "image") {
+      return (
+        <motion.img
+          src={data.url}
+          alt="Blog Thumbnail"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="w-full h-auto rounded-3xl shadow-2xl mb-12 hover:shadow-[0_0_25px_var(--color-logo)] hover:scale-[1.01] transition-all duration-500"
+        />
+      );
+    }
+    if (data.type === "video") {
+      console.log("data", data);
+      return (
+        <iframe
+          src={data.url}
+          title="Video"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="w-full aspect-video rounded-2xl"
+        ></iframe>
+      );
+    }
+  };
 
   const renderContent = (block: any, index: number) => {
     switch (block.type) {
       case "paragraph":
-        console.log(cleanQuillTableHtml(block.value));
         return (
           <motion.div
             key={index}
@@ -156,17 +183,7 @@ const SingleBlogPage = () => {
         </motion.div>
 
         {/* Thumbnail */}
-        {blog.thumbnail && (
-          <motion.img
-            src={blog.thumbnail}
-            alt="Blog Thumbnail"
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="w-full h-auto rounded-3xl shadow-2xl mb-12 hover:shadow-[0_0_25px_var(--color-logo)] hover:scale-[1.01] transition-all duration-500"
-          />
-        )}
+        {blog.thumbnail && renderBlogThumbnail(blog.thumbnail)}
 
         {/* Blog Content */}
         <div className="flex flex-col gap-10 lg:gap-14">
