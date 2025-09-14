@@ -66,7 +66,6 @@ const SingleBlogPage = () => {
       );
     }
     if (data.type === "video") {
-      console.log("data", data);
       return (
         <iframe
           src={data.url}
