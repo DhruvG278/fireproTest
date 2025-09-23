@@ -92,11 +92,20 @@ const SingleBlogPage = () => {
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(block.value),
             }}
-            className=" text-lg md:text-lg leading-relaxed tracking-wide [&>h1]:text-3xl [&>h1]:font-bold 
+            className="!text-white text-lg md:text-lg leading-relaxed tracking-wide [&>h1]:text-3xl [&>h1]:font-bold 
               [&>h2]:text-2xl [&>h2]:font-semibold
               [&>h3]:text-xl [&>h3]:font-medium
               [&>ol]:list-disc [&>ol]:mb-2  [&>p]:text-text-primary
-              [&>ul]:list-disc [&>ul]:ml-6 [&>li]:!text-lg"
+              [&>ul]:list-disc [&>ul]:ml-6 [&>li]:!text-lg
+                [&_table]:border [&_table]:border-white [&_table]:border-collapse [&_table]:w-full
+    [&_thead]:border [&_thead]:border-white
+    [&_tbody]:border [&_tbody]:border-white
+    [&_tr]:border [&_tr]:border-white
+    [&_th]:border [&_th]:border-white [&_th]:p-2
+    [&_td]:border [&_td]:border-white [&_td]:p-2
+              
+              
+              "
           />
         );
 
