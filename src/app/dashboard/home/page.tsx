@@ -1,11 +1,13 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { blogs } from "@/dummyData/data";
 import { MoreVertical } from "lucide-react"; // for 3 dots icon
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BeatLoader } from "react-spinners";
+import { BlogType } from "@/types/blog";
 
 export default function HomePage() {
   const [search, setSearch] = useState("");
@@ -18,10 +20,12 @@ export default function HomePage() {
   const startDateRef = useRef<HTMLInputElement>(null);
   const endDateRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
-  const [allBlogs, setAllBlogs] = useState(blogs);
+  const [allBlogs, setAllBlogs] = useState<BlogType[]>(blogs);
   const router = useRouter();
   const blogsPerPage = 12;
-
+  useEffect(() => {
+    // fetchAllBlogs();
+  }, []);
   // filter + sort
   const filteredBlogs = allBlogs
     .filter((blog) => blog.title.toLowerCase().includes(search.toLowerCase()))
@@ -70,7 +74,13 @@ export default function HomePage() {
       setLoading(false);
     }
   };
-
+  if (loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <BeatLoader color="var(--color-logo)" loading={true} />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-[var(--color-primary)] text-[var(--color-text)] px-6 py-10">
       {/* Heading */}

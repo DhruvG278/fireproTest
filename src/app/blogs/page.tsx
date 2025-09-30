@@ -1,18 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { blogs } from "@/dummyData/data";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { ThumbnailType } from "@/types/blog";
+import { BlogType, ThumbnailType } from "@/types/blog";
+import { BeatLoader } from "react-spinners";
+import { fetchAllBlogsAPI } from "@/lib/apis/blogs";
 
 export default function BlogPage() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("newest");
   const [currentPage, setCurrentPage] = useState(1);
   const navigation = useRouter();
-  const [allBlogs, setAllBlogs] = useState(blogs);
+  const [allBlogs, setAllBlogs] = useState<BlogType[]>(blogs);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    // fetchAllBlogs();
+  }, []);
 
   const blogsPerPage = 12;
 
@@ -38,10 +44,13 @@ export default function BlogPage() {
   );
   const fetchAllBlogs = async () => {
     try {
-      const response = await axios.get("/api/blog");
+      const response = await fetchAllBlogsAPI();
+      console.log("response", response);
       setAllBlogs(response.data.blogs);
     } catch (error) {
       toast.error("Failed to fetch blogs");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,7 +78,13 @@ export default function BlogPage() {
       );
     }
   };
-
+  if (loading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <BeatLoader color="var(--color-logo)" loading={true} />
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-[var(--color-primary)] text-[var(--color-text)] px-6 py-12 flex flex-col items-center">
       {/* Title */}

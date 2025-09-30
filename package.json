@@ -40,8 +40,8 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/node": "^20.19.17",
+    "@types/react": "^19.1.14",
     "@types/react-dom": "^19",
     "@types/react-slick": "^0.23.13",
     "prisma": "^6.15.0",

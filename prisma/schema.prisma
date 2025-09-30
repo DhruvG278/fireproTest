@@ -3,15 +3,16 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
-
 model Blog {
   id          String        @id @default(uuid())
   title       String
-  thumbnail   String?       // optional thumbnail URL
-  thumbnailType ThumbnailType?
+  // Instead of storing just a string, link to Media
+  thumbnailId String?       // foreign key to Media
+  thumbnail   Media?        @relation(fields: [thumbnailId], references: [id])
+
   date        DateTime
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -30,17 +31,16 @@ model BlogContent {
 model Media {
   id        String   @id @default(uuid())
   url       String
+  thumbnail String?
   type      MediaType
   createdAt DateTime @default(now())
+
+  // A media item can be used as a blog thumbnail
+  blogs     Blog[]
 }
 
 enum ContentType {
   paragraph
-  image
-  video
-}
-
-enum ThumbnailType {
   image
   video
 }

@@ -1,14 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BlogType } from "@/types/blog"; // assuming you keep interface in types
+import { BlogType } from "@/types/blog";
 import { Input } from "@/components/common/Input";
 import dynamic from "next/dynamic";
+//@ts-ignore
 import "react-quill-new/dist/quill.snow.css";
 import ThemedDatePicker from "@/components/common/DatePicker";
 import axios from "axios";
 
-// ✅ dynamically import ReactQuill (no SSR)
+// Dynamically import ReactQuill (no SSR)
 const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 const BlogCreateForm = ({
@@ -20,6 +21,8 @@ const BlogCreateForm = ({
 }) => {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [newThumbnail, setNewThumbnail] = useState<File | null>(null);
+
   useEffect(() => setMounted(true), []);
 
   const [blog, setBlog] = useState<Omit<BlogType, "id">>({
@@ -31,7 +34,7 @@ const BlogCreateForm = ({
 
   const [error, setError] = useState("");
 
-  // Add new block
+  // Add new content block
   const addContentBlock = (type: BlogType["content"][0]["type"]) => {
     setBlog((prev) => ({
       ...prev,
@@ -39,72 +42,74 @@ const BlogCreateForm = ({
     }));
   };
 
-  // Update block value
+  // Update content block
   const updateBlock = (index: number, value: any) => {
     const updated = [...blog.content];
     updated[index].value = value;
     setBlog((prev) => ({ ...prev, content: updated }));
   };
 
-  // Remove block
+  // Remove content block
   const removeBlock = (index: number) => {
     const updated = [...blog.content];
     updated.splice(index, 1);
     setBlog((prev) => ({ ...prev, content: updated }));
   };
 
+  // Handle form submission
   const handleSubmit = async () => {
-    if (!blog.title.trim()) {
-      setError("Title is required");
-      return;
-    }
-    if (!blog.date) {
-      setError("Date is required");
-      return;
-    }
-    if (!blog.thumbnail?.url) {
-      setError("Thumbnail is required");
-      return;
-    }
-    setError("");
-    console.log(blog);
-
-    // Example API call structure
     try {
+      if (!blog.title.trim()) {
+        setError("Title is required");
+        return;
+      }
+      if (!blog.date) {
+        setError("Date is required");
+        return;
+      }
+      if (blog.thumbnail?.type === "image" && !newThumbnail) {
+        setError("Thumbnail is required");
+        return;
+      }
+      setError("");
+      console.log("blog", blog);
       const formData = new FormData();
       formData.append("title", blog.title);
       formData.append("date", blog.date);
 
-      // Handle Thumbnail
-      if (blog.thumbnail?.type === "image") {
-        // If it's a base64 string, you may need to handle file separately
+      // Thumbnail
+      if (blog.thumbnail?.type === "image" && newThumbnail) {
+        formData.append("thumbnail", newThumbnail);
         formData.append("thumbnailType", "image");
-        formData.append("thumbnailUrl", blog.thumbnail.url);
-      } else if (blog.thumbnail?.type === "video") {
+      } else if (blog.thumbnail?.type === "video" && blog.thumbnail.url) {
         formData.append("thumbnailType", "video");
-        formData.append("thumbnailUrl", blog.thumbnail.url);
+        formData.append("thumbnailURL", blog.thumbnail.url);
       }
 
-      // Serialize contents
-      const contentPayload: any[] = blog.content.map((block) => ({
-        type: block.type,
-        value: block.value,
-      }));
-      formData.append("contents", JSON.stringify(contentPayload));
+      // Contents
+      blog.content.forEach((block, index) => {
+        if (block.type === "image" && block.value instanceof File) {
+          formData.append(`contents[${index}][file]`, block.value);
+          formData.append(`contents[${index}][type]`, "image");
+        } else {
+          formData.append(`contents[${index}][type]`, block.type);
+          formData.append(`contents[${index}][value]`, block.value);
+        }
+      });
 
       if (isCreate) {
-        await axios.post("/api/blog", formData, {
+        await axios.post("/api/private/blog", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
         if (!blogData?.id) throw new Error("Blog ID is missing for update");
-        formData.append("id", blogData?.id);
-        await axios.put(`/api/blog/${blogData?.id}`, formData, {
+        formData.append("id", blogData.id);
+        await axios.put(`/api/blog/${blogData.id}`, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       }
 
-      router.push("/dashboard");
+      // router.push("/dashboard/home");
     } catch (err) {
       console.error(err);
       setError("Failed to save blog");
@@ -118,16 +123,14 @@ const BlogCreateForm = ({
       </h2>
 
       {/* Blog Title */}
-      <div>
-        <Input
-          type="text"
-          placeholder="Title"
-          label="Blog Title"
-          value={blog.title}
-          onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-          className="w-full border p-3 rounded mb-4"
-        />
-      </div>
+      <Input
+        type="text"
+        placeholder="Title"
+        label="Blog Title"
+        value={blog.title}
+        onChange={(e) => setBlog({ ...blog, title: e.target.value })}
+        className="w-full border p-3 rounded mb-4"
+      />
 
       {/* Blog Date */}
       <div className="w-full">
@@ -179,17 +182,14 @@ const BlogCreateForm = ({
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (file) {
-                  const reader = new FileReader();
-                  reader.onload = () => {
-                    setBlog({
-                      ...blog,
-                      thumbnail: {
-                        type: "image",
-                        url: reader.result as string,
-                      },
-                    });
-                  };
-                  reader.readAsDataURL(file);
+                  setNewThumbnail(file);
+                  setBlog({
+                    ...blog,
+                    thumbnail: {
+                      type: "image",
+                      url: URL.createObjectURL(file),
+                    },
+                  });
                 }
               }}
               className="w-full border p-2 rounded"
@@ -265,18 +265,14 @@ const BlogCreateForm = ({
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     if (file) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        updateBlock(index, reader.result);
-                      };
-                      reader.readAsDataURL(file);
+                      updateBlock(index, file);
                     }
                   }}
                   className="w-full border p-2 rounded text-text-primary"
                 />
                 {block.value && (
                   <img
-                    src={block.value}
+                    src={URL.createObjectURL(block.value as File)}
                     alt="Uploaded preview"
                     className="max-h-60 rounded shadow"
                   />
@@ -295,13 +291,6 @@ const BlogCreateForm = ({
           className="px-4 py-2 bg-blue-500 text-white rounded"
         >
           + Paragraph
-        </button>
-        <button
-          type="button"
-          onClick={() => addContentBlock("image")}
-          className="px-4 py-2 bg-green-500 text-white rounded"
-        >
-          + Image
         </button>
       </div>
 
