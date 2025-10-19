@@ -6,35 +6,35 @@ import { ShieldCheck, Cpu, Users, Globe2 } from "lucide-react"; // example icons
 import { images } from "@/utils/images";
 
 const features = [
+  // {
+  //   title: "AI Integration",
+  //   description:
+  //     "Our proprietary tools use machine learning for predictive hazard analysis, automated code compliance checks, and optimized system layouts — delivering designs 3x faster than traditional methods.",
+  //   icon: Cpu,
+  // },
   {
-    title: "AI Integration",
+    title: "Expert Team Content",
     description:
-      "Our proprietary tools use machine learning for predictive hazard analysis, automated code compliance checks, and optimized system layouts — delivering designs 3x faster than traditional methods.",
-    icon: Cpu,
-  },
-  {
-    title: "Expert Team",
-    description:
-      "Full-time designers with experience in dedicated fire sprinkler monitoring, voice evacuation systems, and beyond. We're not just designers; we're strategic partners.",
+      "Large design team with experience in fire sprinkler, pre-action, VESDA, voice evacuation systems, and beyond. We're not just designers; we're strategic partners.",
     icon: Users,
   },
   {
     title: "Client-Centric Approach",
     description:
-      "Cost-effective pricing, no hidden fees for revisions or data sheets, and availability of PE seals (except in select states). We match your custom designs perfectly.",
+      "Cost-effective pricing with no additional fees for CSFM or data sheets, and availability of PE seals in all 50 states. We match your custom designs perfectly. ",
     icon: ShieldCheck,
   },
   {
     title: "Commitment to Excellence",
     description:
-      "Strict confidentiality ensures your intellectual property remains protected. Our client portal’s real-time features make collaboration effortless, impressing stakeholders and outpacing competitors.",
+      "Strict confidentiality ensures your intellectual property remains protected. Our client portal’s real-time features make collaboration effortless, efficiently outpacing competitors. ",
     icon: Globe2,
   },
 ];
 
 const teamHighlights = [
-  "Led by industry veterans with 20+ years in fire protection.",
-  "AI developers collaborating with engineers for hybrid solutions.",
+  "Led by industry veterans.",
+  "AI development collaboration for hybrid solutions.",
   "Global reach, serving clients across the U.S. and beyond.",
 ];
 

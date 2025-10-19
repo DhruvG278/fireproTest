@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, time } from "framer-motion";
 import {
   AlarmCheck,
   Sprout,
@@ -17,55 +17,55 @@ const services = [
   {
     title: "AI-Enhanced Fire Alarm Design",
     description:
-      "Advanced systems including voice evacuation, mass communication, and integration with HVAC, security, and access control. AI optimizes layouts for maximum coverage and minimal false alarms.",
+      "Advanced systems including voice evacuation, mass communication, and integration with HVAC, security, and access control. Our AI optimizes layouts for maximum coverage.",
     icon: AlarmCheck,
   },
   {
     title: "Sprinkler and Suppression Systems",
     description:
-      "Design for sprinklers, pre-action, NOVEC, FM-200, CO detection, VESDA, and smoke control. AI simulates scenarios for foolproof performance.",
+      "Design for sprinklers, pre-action, NOVEC, FM-200, suppression, VESDA, and smoke control. AI provided optimized feedback foolproof design and performance. ",
     icon: Sprout,
   },
   {
     title: "Estimating and Sales Support",
     description:
-      "Accurate, data-driven estimates using AI analytics to win bids. We handle sales presentations and material takeoffs.",
+      "Accurate, data-driven take-offs using AI analytics and up-to-date AHJ requirements to win bids.",
     icon: Calculator,
   },
   {
-    title: "Submittals for Approval",
+    title: "Optimized Permitting",
     description:
-      "Streamlined packages with NICET IV/PE reviews and seals, powered by advanced software that simplifies permitting.",
+      "Streamlined with NICET IV/PE reviews and seals as required. We handle the AHJ permitting process for you while providing optimized status tracking. ",
     icon: FileCheck,
     extra: [
-      "🚀 Accelerated Approvals (40% faster permitting)",
-      "✅ Error-Free Submissions (99% first-pass approval)",
-      "🌎 Nationwide Compliance Expertise",
-      "📊 Transparent Progress Tracking",
+      "<strong> 🚀 Accelerated Approvals (40% faster permitting)</strong>",
+      "<strong>✅ Error-Free Submissions (99% first-pass approval)</strong>",
+      "<strong>🌎 Nationwide Compliance Expertise</strong>",
+      "<strong>📊 Transparent Progress Tracking</strong>",
     ],
   },
-  {
-    title: "BIM and 3D Modeling",
-    description:
-      "Integrated Building Information Modeling for clash detection and visualization, enhanced by AI for real-time updates.",
-    icon: Box,
-  },
-  {
-    title: "Additional Integrated Designs",
-    description:
-      "Data/structured cabling, nurse call, CCTV, area of refuge/rescue, magnetic door holders, and more — all unified under one AI platform.",
-    icon: Layers,
-  },
+  // {
+  //   title: "BIM and 3D Modeling",
+  //   description:
+  //     "Integrated Building Information Modeling for clash detection and visualization, enhanced by AI for real-time updates.",
+  //   icon: Box,
+  // },
+  // {
+  //   title: "Additional Integrated Designs",
+  //   description:
+  //     "Data/structured cabling, nurse call, CCTV, area of refuge/rescue, magnetic door holders, and more — all unified under one AI platform.",
+  //   icon: Layers,
+  // },
   {
     title: "Consulting and Retrofits",
     description:
-      "Expert upgrades with AI predictive modeling to forecast risks. Enhanced by real-time photo/video sharing and smart documentation.",
+      "Expert upgrades with AI predictive modeling to forecast risks. Enhanced by real-time photo/video sharing and smart documentation. with this: Retrofit Site Visits Expert on-site verification of existing conditions and upgrades to fire protection systems. Enhanced by real-time photo/video sharing and smart documentation to enhance efficient communication. ",
     icon: Wrench,
     extra: [
-      "📷 Real-Time Photo & Video Sharing",
-      "📝 Efficient Project Documentation",
-      "🤝 Enhanced Collaboration & Transparency",
-      "✔ Improved Accountability & Error Reduction",
+      `📷 <strong>Real-Time Photo & Video Sharing:</strong> Capture geo-tagged, time-stamped visuals during assessments to instantly share progress and issues with your team, reducing miscommunication and enabling remote quality control.​`,
+      `📝 <strong>Efficient Project Documentation:</strong> Automatically organize photos by project, with markup tools to annotate hazards, circle problem areas, and add comments — creating professional before-and-after reports for seamless retrofits.​`,
+      `🤝 <strong>Enhanced Collaboration & Transparency:</strong> Invite team members or subcontractors to view and contribute, building client trust through visual updates and minimizing the need for repeat visits, which saves time and cuts travel costs.​`,
+      `✔ <strong>Improved Accountability & Error Reduction:</strong> Use checklists and PDF reports to track tasks, ensure nothing is missed, and provide a second set of eyes from the office — leading to higher accuracy in assessments and faster decision-making, with 15–20% overall error reduction.`,
     ],
   },
 ];
@@ -123,7 +123,7 @@ const Services = () => {
         </motion.p>
 
         {/* Service Grid */}
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
           {services.map((service, idx) => {
             const Icon = service.icon;
             const isOpen = expanded === idx;
@@ -186,16 +186,19 @@ const Services = () => {
                       {isOpen ? "Hide details" : "See details"}
                     </button>
                     {isOpen && (
-                      <motion.ul
+                      <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4 }}
-                        className="mt-3 space-y-2 text-white/70 text-sm"
+                        className="mt-3 space-y-4 text-white/70 text-sm"
                       >
                         {service.extra.map((point, i) => (
-                          <li key={i}>{point}</li>
+                          <p
+                            key={i}
+                            dangerouslySetInnerHTML={{ __html: point }}
+                          />
                         ))}
-                      </motion.ul>
+                      </motion.div>
                     )}
                   </div>
                 )}
@@ -224,7 +227,7 @@ const Services = () => {
         <div className="mt-12 text-center">
           <p className="text-white/60 text-sm">
             💡 Transparent, project-based pricing. No extras for CSFM, data
-            sheets, or AHJ revisions. Contact us for a tailored quote.
+            sheets. Contact us for a tailored quote.
           </p>
         </div>
       </div>

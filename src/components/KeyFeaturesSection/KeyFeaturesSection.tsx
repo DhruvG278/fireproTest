@@ -162,9 +162,9 @@ const KeyFeaturesSection = () => {
               Scalable Solutions for Big Contractors
             </p>
             <p className="text-lg text-text-primary mt-2">
-              Say goodbye to in-house designers. We provide end-to-end services,
-              from initial estimates to final approvals, at a fraction of the
-              cost—handling unlimited revisions without extra fees.
+              We provide end-to-end services, from take-offs estimates to final
+              approvals, at a fraction of the cost—handling the entire design
+              process.
             </p>
           </motion.div>
 
