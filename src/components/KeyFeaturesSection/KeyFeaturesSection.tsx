@@ -162,9 +162,8 @@ const KeyFeaturesSection = () => {
               Scalable Solutions for Big Contractors
             </p>
             <p className="text-lg text-text-primary mt-2">
-              We provide end-to-end services, from take-offs estimates to final
-              approvals, at a fraction of the cost—handling the entire design
-              process.
+              We provide end-to-end services, from take-offs to final approvals,
+              at a fraction of the cost—handling the entire design process.
             </p>
           </motion.div>
 
