@@ -52,9 +52,9 @@ const ContactUsSection = () => {
           transition={{ delay: 0.3, duration: 1 }}
           className="text-gray-300 text-lg"
         >
-          Reach out to discuss how ProTech CDS's innovative solutions and client
-          portal can elevate your next project. We're ready to partner on your
-          biggest challenges.
+          Reach out to discuss how ProTech CDS's innovative solutions can
+          elevate your next project. We're ready to partner on your biggest
+          challenges.
         </motion.p>
       </div>
 
@@ -117,30 +117,10 @@ const ContactUsSection = () => {
               <Phone className="text-[var(--color-logo)]" size={18} />
               Phone: (619) 860-0305
             </p>
-            <p className="flex items-center gap-2">
-              <MapPin className="text-[var(--color-logo)]" size={18} />
-              Address: 9187 Claremont Mesa Blvd, #6-566, San Diego, CA 92123
-            </p>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex gap-4 mt-4">
-            <a
-              href="#"
-              className="p-2 rounded-full bg-[#111] hover:bg-[var(--color-logo)] hover:text-black transition"
-            >
-              <Linkedin size={20} />
-            </a>
-            <a
-              href="#"
-              className="p-2 rounded-full bg-[#111] hover:bg-[var(--color-logo)] hover:text-black transition"
-            >
-              <Twitter size={20} />
-            </a>
           </div>
 
           {/* Map Embed */}
-          <div className="rounded-2xl overflow-hidden shadow-lg border border-[#222]">
+          {/* <div className="rounded-2xl overflow-hidden shadow-lg border border-[#222]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3357.3609305373584!2d-117.13715!3d32.83212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbff44f1f0b2db%3A0xaaa!2s9187%20Claremont%20Mesa%20Blvd%20%236-566%2C%20San%20Diego%2C%20CA%2092123!5e0!3m2!1sen!2sus!4v0000000000000!5m2!1sen!2sus"
               width="100%"
@@ -149,13 +129,13 @@ const ContactUsSection = () => {
               loading="lazy"
               allowFullScreen
             ></iframe>
-          </div>
+          </div> */}
 
           {/* Final Note */}
-          <p className="text-sm text-gray-400">
+          {/* <p className="text-sm text-gray-400">
             Final Note: Expect a response within 24 hours. For urgent projects,
             call us directly.
-          </p>
+          </p> */}
         </motion.div>
       </div>
 

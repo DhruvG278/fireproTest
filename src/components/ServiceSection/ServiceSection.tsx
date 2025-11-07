@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, time } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   AlarmCheck,
   Sprout,
@@ -10,6 +10,9 @@ import {
   Box,
   Layers,
   Wrench,
+  ClipboardCheck,
+  BarChart3,
+  FileText,
 } from "lucide-react";
 import { BorderBeam } from "../lightswind/border-beam";
 
@@ -17,73 +20,85 @@ const services = [
   {
     title: "AI-Enhanced Fire Alarm Design",
     description:
-      "Advanced systems including voice evacuation, mass communication, and integration with HVAC, security, and access control. Our AI optimizes layouts for maximum coverage.",
+      "Advanced systems including voice evacuation, mass communication, and integration with HVAC, security, and access control. Our AI optimizes layouts for maximum coverage and minimal false alarms.",
     icon: AlarmCheck,
   },
   {
     title: "Sprinkler and Suppression Systems",
     description:
-      "Design for sprinklers, pre-action, NOVEC, FM-200, suppression, VESDA, and smoke control. AI provided optimized feedback foolproof design and performance. ",
+      "Design for fire sprinklers, pre-action systems (NOVEC), clean agents (FM-200), CO detection, VESDA, and smoke control. AI simulates scenarios for foolproof performance.",
     icon: Sprout,
   },
   {
-    title: "Estimating and Sales Support",
+    title: "Takeoff and Sales Support",
     description:
-      "Accurate, data-driven take-offs using AI analytics and up-to-date AHJ requirements to win bids.",
+      "Our AI-driven takeoffs deliver precise quantifications, detailed material specifications, and scope analysis aligned with NFPA 13/72, IFC, IBC, and OSHA. This empowers you to integrate your own costs and labor rates seamlessly. Our NICET IV certified team ensures 15–20% error reduction and 20–30% sustainability savings, enhancing your bids with data-driven insights.",
     icon: Calculator,
   },
   {
-    title: "Optimized Permitting",
+    title: "Submittals for Approval",
     description:
-      "Streamlined with NICET IV/PE reviews and seals as required. We handle the AHJ permitting process for you while providing optimized status tracking. ",
+      "Streamlined packages with NICET IV/PE reviews and seals, powered by advanced software that simplifies permitting and ensures compliance with local regulations.",
     icon: FileCheck,
     extra: [
-      "<strong> 🚀 Accelerated Approvals (40% faster permitting)</strong>",
-      "<strong>✅ Error-Free Submissions (99% first-pass approval)</strong>",
-      "<strong>🌎 Nationwide Compliance Expertise</strong>",
-      "<strong>📊 Transparent Progress Tracking</strong>",
+      "🚀 <strong>Accelerated Approvals:</strong> Automated permit tracking and AHJ communication reduce approval times by up to 40%, keeping projects on schedule.",
+      "✅ <strong>Error-Free Submissions:</strong> AI-driven checks ensure 99% first-pass approval rates, eliminating costly revisions.",
+      "🌎 <strong>Nationwide Compliance Expertise:</strong> Stay compliant across 48 states with real-time updates on local and state codes.",
+      "📊 <strong>Transparent Progress Tracking:</strong> Monitor submittal statuses and milestones through our client portal with automated notifications.",
     ],
   },
-  // {
-  //   title: "BIM and 3D Modeling",
-  //   description:
-  //     "Integrated Building Information Modeling for clash detection and visualization, enhanced by AI for real-time updates.",
-  //   icon: Box,
-  // },
-  // {
-  //   title: "Additional Integrated Designs",
-  //   description:
-  //     "Data/structured cabling, nurse call, CCTV, area of refuge/rescue, magnetic door holders, and more — all unified under one AI platform.",
-  //   icon: Layers,
-  // },
   {
-    title: "Consulting and Retrofits",
+    title: "BIM and 3D Modeling",
     description:
-      "Expert upgrades with AI predictive modeling to forecast risks. Enhanced by real-time photo/video sharing and smart documentation. with this: Retrofit Site Visits Expert on-site verification of existing conditions and upgrades to fire protection systems. Enhanced by real-time photo/video sharing and smart documentation to enhance efficient communication. ",
+      "Integrated Building Information Modeling for clash detection and visualization, enhanced by AI for real-time updates and coordination accuracy.",
+    icon: Box,
+  },
+  {
+    title: "Additional Integrated Designs",
+    description:
+      "Comprehensive integration of data/structured cabling, nurse call, CCTV, area of refuge/rescue, magnetic door holders, and more — all unified under one AI platform.",
+    icon: Layers,
+  },
+  {
+    title: "Site Visits for Consulting and Retrofits",
+    description:
+      "Expert on-site verification and retrofit services with AI predictive modeling to forecast risks and ensure code compliance.",
     icon: Wrench,
     extra: [
-      `📷 <strong>Real-Time Photo & Video Sharing:</strong> Capture geo-tagged, time-stamped visuals during assessments to instantly share progress and issues with your team, reducing miscommunication and enabling remote quality control.​`,
-      `📝 <strong>Efficient Project Documentation:</strong> Automatically organize photos by project, with markup tools to annotate hazards, circle problem areas, and add comments — creating professional before-and-after reports for seamless retrofits.​`,
-      `🤝 <strong>Enhanced Collaboration & Transparency:</strong> Invite team members or subcontractors to view and contribute, building client trust through visual updates and minimizing the need for repeat visits, which saves time and cuts travel costs.​`,
-      `✔ <strong>Improved Accountability & Error Reduction:</strong> Use checklists and PDF reports to track tasks, ensure nothing is missed, and provide a second set of eyes from the office — leading to higher accuracy in assessments and faster decision-making, with 15–20% overall error reduction.`,
+      "📷 <strong>Real-Time Photo & Video Sharing:</strong> Capture geo-tagged, time-stamped visuals to share instantly with your team for remote quality control.",
+      "📝 <strong>Efficient Project Documentation:</strong> Automatically organize annotated project photos and generate professional before–after reports.",
+      "🤝 <strong>Enhanced Collaboration & Transparency:</strong> Invite teams or subcontractors for shared visual updates, reducing travel and improving client trust.",
+      "✔ <strong>Improved Accountability & Error Reduction:</strong> Use AI-assisted checklists and reports to boost accuracy by 15–20% and streamline assessments.",
     ],
+  },
+  {
+    title: "AI-Assisted NFPA Compliance Review Service",
+    description:
+      "A fast, third-party review of fire alarm, sprinkler, or suppression system designs for NFPA 72/13 compliance before AHJ submission. Our AI flags potential issues early to reduce rejection rates and rework costs.",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "AI-Driven Bid Optimization and Estimation Service",
+    description:
+      "Optimized bids for fire protection projects using AI to analyze specs and suggest cost-saving designs, material efficiencies, or system alternatives (like integrating VESDA or smoke control). Delivered as a detailed PDF with breakdowns and recommendations.",
+    icon: BarChart3,
+  },
+  {
+    title: "AI-Generated Custom Project Reports and Cheat Sheets",
+    description: `Tailored reports or cheat sheets on fire protection requirements by occupancy (e.g., including kitchen hoods, suppression, or BIM integration), pulling in real-time updates from codes or trends. Request via email (e.g., "Cheat sheet for healthcare facility with VESDA"); we compile into a clean PDF with tables, checklists, and visuals. `,
+    icon: FileText,
   },
 ];
 
 const Services = () => {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const spring = { type: "spring", damping: 10, stiffness: 100 };
 
-  const spring = {
-    type: "spring",
-    damping: 10,
-    stiffness: 100,
-  };
   return (
     <section
       id={"services"}
       className="relative bg-[var(--color-primary)] text-[var(--color-text-primary)] py-20 px-6 overflow-hidden"
     >
-      {/* Floating Accent Background */}
       <motion.div
         className="absolute top-20 right-10 w-80 h-80 bg-[var(--color-logo)]/10 rounded-full blur-3xl"
         animate={{ x: [0, 40, -40, 0], y: [0, -30, 30, 0] }}
@@ -91,14 +106,13 @@ const Services = () => {
       />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Headline */}
         <motion.h1
           className="text-4xl md:text-6xl font-bold text-center"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Comprehensive,{" "}
+          Comprehensive{" "}
           <span className="text-[var(--color-logo)] relative">
             AI-Driven
             <motion.span
@@ -110,19 +124,17 @@ const Services = () => {
           Fire Protection Services
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.p
           className="mt-6 max-w-3xl mx-auto text-lg text-center text-white/80"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          From concept to compliance, our services cover every phase — powered
-          by AI for superior efficiency and accuracy. Outsource with confidence
-          and watch your projects thrive.
+          From concept to compliance, our AI-powered solutions streamline
+          design, submittals, and retrofits — ensuring faster approvals, fewer
+          errors, and complete confidence in every project.
         </motion.p>
 
-        {/* Service Grid */}
         <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
           {services.map((service, idx) => {
             const Icon = service.icon;
@@ -158,25 +170,20 @@ const Services = () => {
                   borderThickness={2}
                   glowIntensity={3}
                 />
-                {/* Shimmer overlay */}
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-120%] group-hover:translate-x-[120%] transition-transform duration-1000 ease-in-out" />
 
-                {/* Icon */}
                 <div className="bg-[var(--color-logo)] w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300">
                   <Icon className="text-black w-6 h-6" />
                 </div>
 
-                {/* Title */}
                 <h3 className="text-xl font-semibold text-[var(--color-logo)] group-hover:text-white transition-colors duration-300">
                   {service.title}
                 </h3>
 
-                {/* Description */}
                 <p className="mt-2 text-sm text-white/80 group-hover:text-white transition-colors duration-300">
                   {service.description}
                 </p>
 
-                {/* Expandable extra list */}
                 {service.extra && (
                   <div className="mt-4">
                     <button
@@ -207,27 +214,22 @@ const Services = () => {
           })}
         </div>
 
-        {/* Benefits Section */}
         <div className="mt-20 text-center space-y-6">
           <h2 className="text-3xl font-bold text-[var(--color-logo)]">
             Why Choose Us
           </h2>
           <p className="max-w-4xl mx-auto text-white/80 text-lg">
-            For Big Contractors: Scale effortlessly with AI-driven tools that
-            cut errors by 90% and speed permitting by 40%. <br />
-            For Current Partners: Move beyond email chaos with our client
-            portal's real-time chat, automated project starts, and instant
-            updates. <br />
-            Competitors envy our predictive insights, automation, and unmatched
-            efficiency.
+            Scale effortlessly with AI-driven tools that reduce design errors by
+            up to 90% and accelerate permitting by 40%. Experience real-time
+            collaboration, predictive compliance insights, and transparent
+            project tracking — all from a single client portal.
           </p>
         </div>
 
-        {/* Pricing Note */}
         <div className="mt-12 text-center">
           <p className="text-white/60 text-sm">
-            💡 Transparent, project-based pricing. No extras for CSFM, data
-            sheets. Contact us for a tailored quote.
+            💡 Transparent, project-based pricing. Contact us for a tailored
+            quote — no extra fees for CSFM or data sheets.
           </p>
         </div>
       </div>

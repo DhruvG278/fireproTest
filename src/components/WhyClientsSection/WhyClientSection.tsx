@@ -14,7 +14,7 @@ const WhyClientsSection = () => {
         transition={{ duration: 0.8 }}
         className="text-4xl md:text-5xl font-bold text-center mb-12"
       >
-        Why Current Clients Will Love It:
+        All-in-one platform
       </motion.h2>
 
       {/* Content Row */}
@@ -28,7 +28,7 @@ const WhyClientsSection = () => {
         >
           <p>
             If you're used to emailing back and forth, our portal is a
-            game-changer. Instead of digging through inboxes, you'll have
+            game-changer. Instead of digging email chains, you'll have
             everything in one place-real-time chats, instant design updates, and
             automated project starts save hours of coordination.
           </p>
@@ -60,23 +60,6 @@ const WhyClientsSection = () => {
       </div>
 
       {/* How to Get Started */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="max-w-4xl mx-auto mb-20"
-      >
-        <h3 className="text-2xl font-semibold mb-6 text-[var(--color-logo)]">
-          How to Get Started:
-        </h3>
-        <p className="text-gray-300 mb-3">
-          Existing clients: Log in with your credentials and explore the new
-          features.
-        </p>
-        <p className="text-gray-300">
-          New partners: Request access during your consultation.
-        </p>
-      </motion.div>
 
       {/* Testimonial */}
       <motion.div
@@ -97,7 +80,7 @@ const WhyClientsSection = () => {
       </motion.div>
 
       {/* Extra Image Suggestions */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
+      {/* <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
         <motion.div
           whileHover={{ scale: 1.05 }}
           className="h-40 bg-[#111] rounded-2xl flex items-center justify-center shadow-md hover:shadow-[0_0_20px_var(--color-logo)]"
@@ -123,7 +106,7 @@ const WhyClientsSection = () => {
             reports
           </p>
         </motion.div>
-      </div>
+      </div> */}
     </section>
   );
 };
