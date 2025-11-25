@@ -15,9 +15,7 @@ export const Header = () => {
   const [currentSection, setCurrentSection] = useState("home");
   const pathname = usePathname();
   const navigate = useRouter();
-  if (pathname.includes("dashboard")) {
-    return null;
-  }
+
   // Handle scroll effect for header
   useEffect(() => {
     const handleScroll = () => {
@@ -62,7 +60,7 @@ export const Header = () => {
     return () => {
       sections.forEach((section) => observer.unobserve(section));
     };
-  }, []);
+  }, [pathname]);
 
   // For contact Section
   useEffect(() => {
@@ -72,7 +70,12 @@ export const Header = () => {
     if (pathname.includes("protech-software")) {
       setCurrentSection("tools");
     }
-  }, []);
+  }, [pathname]);
+
+  // Early return check after all hooks are called
+  if (pathname.includes("dashboard")) {
+    return null;
+  }
 
   const navItems = [
     { name: "Home", href: "#", key: "home" },
