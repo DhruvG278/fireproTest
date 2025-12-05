@@ -18,21 +18,21 @@ import { BorderBeam } from "../lightswind/border-beam";
 
 const services = [
   {
-    title: "AI-Enhanced Fire Alarm Design",
+    title: "AI Enhanced Fire Alarm Design",
     description:
-      "Advanced systems including voice evacuation, mass communication, and integration with HVAC, security, and access control. Our AI optimizes layouts for maximum coverage and minimal false alarms.",
+      "Advanced systems including voice evacuation, mass communication, and integration with HVAC, security, and access control. Our AI optimizes layouts for maximum coverage complying wiht updated AHJ requirements",
     icon: AlarmCheck,
   },
   {
     title: "Sprinkler and Suppression Systems",
     description:
-      "Design for fire sprinklers, pre-action systems (NOVEC), clean agents (FM-200), CO detection, VESDA, and smoke control. AI simulates scenarios for foolproof performance.",
-    icon: Sprout,
+      "Design for fire sprinklers, pre-action systems (NOVEC), clean agents (FM-200), and VESDA. Enhanced design practices ensuring speed and quality.",
+      icon: Sprout,
   },
   {
     title: "Takeoff and Sales Support",
     description:
-      "Our AI-driven takeoffs deliver precise quantifications, detailed material specifications, and scope analysis aligned with NFPA 13/72, IFC, IBC, and OSHA. This empowers you to integrate your own costs and labor rates seamlessly. Our NICET IV certified team ensures 15–20% error reduction and 20–30% sustainability savings, enhancing your bids with data-driven insights.",
+      "Our AI-driven takeoffs deliver precise quantifications, detailed material specifications, and scope analysis aligned with NFPA 13/72, IFC, IBC, and OSHA. This empowers you to integrate your own costs and labor rates seamlessly",
     icon: Calculator,
   },
   {
@@ -50,19 +50,19 @@ const services = [
   {
     title: "BIM and 3D Modeling",
     description:
-      "Integrated Building Information Modeling for clash detection and visualization, enhanced by AI for real-time updates and coordination accuracy.",
+      "Integrated Building Information Modeling for clash detection and visualization, enhanced design practices for real time updates and coordination accuracy.",
     icon: Box,
   },
   {
     title: "Additional Integrated Designs",
     description:
-      "Comprehensive integration of data/structured cabling, nurse call, CCTV, area of refuge/rescue, magnetic door holders, and more — all unified under one AI platform.",
+      "Comprehensive integration of data/structured cabling, nurse call, CCTV, area of refuge/rescue, magnetic door holders, and more - all unified under one platform, a Complete Design Service.",
     icon: Layers,
   },
   {
     title: "Site Visits for Consulting and Retrofits",
     description:
-      "Expert on-site verification and retrofit services with AI predictive modeling to forecast risks and ensure code compliance.",
+      "Expert on-site verification and retrofit services to verify existing conditions for T.I's, ensuring accurate design.",
     icon: Wrench,
     extra: [
       "📷 <strong>Real-Time Photo & Video Sharing:</strong> Capture geo-tagged, time-stamped visuals to share instantly with your team for remote quality control.",
@@ -72,20 +72,19 @@ const services = [
     ],
   },
   {
-    title: "AI-Assisted NFPA Compliance Review Service",
-    description:
-      "A fast, third-party review of fire alarm, sprinkler, or suppression system designs for NFPA 72/13 compliance before AHJ submission. Our AI flags potential issues early to reduce rejection rates and rework costs.",
+    title: "AI Assisted NFPA Compliance Review Service",
+    description:"Within 1 hour you get a third party review of fire alarm, sprinkler, or suppression system designs for NFPA 72/13 compliance before AHJ submission. Our AI flags potential issues early to reduce rejection rates and rework costs. With our system of checks and balances, your drawing will look impeccable.",
     icon: ClipboardCheck,
   },
   {
     title: "AI-Driven Bid Optimization and Estimation Service",
     description:
-      "Optimized bids for fire protection projects using AI to analyze specs and suggest cost-saving designs, material efficiencies, or system alternatives (like integrating VESDA or smoke control). Delivered as a detailed PDF with breakdowns and recommendations.",
+      "Optimized bids for fire protection projects using AI to analyze specs and suggest cost saving designs, material efficiencies, or system alternatives (like integrating VESDA or smoke control). Delivered as a detailed PDF with breakdowns and recommendations.",
     icon: BarChart3,
   },
   {
-    title: "AI-Generated Custom Project Reports and Cheat Sheets",
-    description: `Tailored reports or cheat sheets on fire protection requirements by occupancy (e.g., including kitchen hoods, suppression, or BIM integration), pulling in real-time updates from codes or trends. Request via email (e.g., "Cheat sheet for healthcare facility with VESDA"); we compile into a clean PDF with tables, checklists, and visuals. `,
+    title: "AI Generated Custom Project Reports and Cheat Sheets",
+    description:`Tailored reports or cheat sheets on fire protection requirements by occupancy (e.g., including kitchen hoods, suppression, or BIM integration), pulling in real time updates from codes and AHJ requirements. We compile into a clean PDF with tables, checklists, and visuals within 1 hour.`, 
     icon: FileText,
   },
 ];
@@ -114,7 +113,7 @@ const Services = () => {
         >
           Comprehensive{" "}
           <span className="text-[var(--color-logo)] relative">
-            AI-Driven
+            AI Driven
             <motion.span
               className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--color-logo)]/40 to-transparent"
               animate={{ x: ["-100%", "100%"] }}
@@ -130,9 +129,9 @@ const Services = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          From concept to compliance, our AI-powered solutions streamline
-          design, submittals, and retrofits — ensuring faster approvals, fewer
-          errors, and complete confidence in every project.
+          From concept to compliance, our AI powered solutions streamline design
+          through submittals. This ensures faster approvals, fewer errors, and
+          complete confidence in every project
         </motion.p>
 
         <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">

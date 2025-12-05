@@ -37,7 +37,7 @@ const WelcomeSection = () => {
 
   // ---------------- Typing Effect ----------------
   const fullText =
-    "Welcome to ProTech, where innovation meets expertise in fire protection systems design and engineering. As leaders in AI-driven solutions, we specialize in large-scale projects for top contractors, architects, and engineers. Our proprietary AI tools ensure rapid turnarounds, flawless designs, and strict adherence to confidentiality. Whether you're building high-rise towers, data centers, or sprawling campuses, we handle everything — empowering you to focus on what you do best. Our state-of-the-art client portal transforms collaboration, replacing endless email chains with realtime updates, seamless communication, and automated project initiation.";
+    "Welcome to ProTech, where innovation meets expertise in fire protection systems design and engineering. As leaders in AI driven solutions, we specialize in large scale projects for top contractors, architects, and engineers. Our proprietary AI tools ensure rapid turnarounds, flawless designs, and strict adherence to confidentiality. Whether you're building high rise towers, data centers, or sprawling campuses, we handle everything empowering you to focus on what you do best. Our state-of-the-art client portal transforms collaboration, replacing endless email chains with realtime updates, seamless communication, and automated project initiation.";
 
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);

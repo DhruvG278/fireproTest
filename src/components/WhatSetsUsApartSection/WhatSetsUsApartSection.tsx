@@ -13,21 +13,19 @@ const features = [
   //   icon: Cpu,
   // },
   {
-    title: "Expert Team Content",
+    title: "Expert Team",
     description:
-      "Large design team with experience in fire sprinkler, pre-action, VESDA, voice evacuation systems, and beyond. We're not just designers; we're strategic partners.",
+      "Large design team with experience in fire alarm, sprinkler, pre-action, VESDA, voice evacuation systems, and beyond. We're not just designers, we're strategic partners. Replace that with this",
     icon: Users,
   },
   {
-    title: "Client-Centric Approach",
-    description:
-      "Cost-effective pricing with no additional fees for CSFM or data sheets, and availability of PE seals in all 50 states. We match your custom designs perfectly. ",
+    title: "Client Centric Approach",
+    description:"a.	More than just design, we offer additional services like take-offs, plan review and AHJ submittals. We handle the entire design phase. Replace this with this",
     icon: ShieldCheck,
   },
   {
     title: "Commitment to Excellence",
-    description:
-      "Strict confidentiality ensures your intellectual property remains protected. Our client portal’s real-time features make collaboration effortless, efficiently outpacing competitors. ",
+    description:"Always leveling up speed and quality. Our platform's real time features make collaboration effortless, efficiently outpacing competitors",
     icon: Globe2,
   },
 ];

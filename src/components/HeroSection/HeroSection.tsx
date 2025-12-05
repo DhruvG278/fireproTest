@@ -52,7 +52,7 @@ const HeroSection = () => {
               At ProTech, we deliver cutting-edge fire protection engineering
               solutions that scale seamlessly for the world&apos;s largest
               projects. Partner with us to outsource your in-house design needs,
-              reduce costs, and accelerate timelines — while achieving unmatched
+              reduce costs, and accelerate timelines while achieving unmatched
               accuracy and compliance.
             </motion.p>
 

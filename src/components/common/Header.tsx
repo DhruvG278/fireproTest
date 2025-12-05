@@ -84,7 +84,6 @@ export const Header = () => {
     { name: "Client Portal", href: "#client", key: "client" },
     { name: "Contact", href: "#contact", key: "contact" },
     { name: "Blog", href: "/blogs", key: "blogs" },
-    { name: "Software", href: "/protech-software", key: "tools" },
   ];
 
   const handleNavClick = () => {

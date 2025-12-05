@@ -80,7 +80,7 @@ const KeyFeaturesSection = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-4xl text-logo font-bold"
         >
-          Why Choose ProTech ?
+          Why Choose ProTech?
         </motion.p>
       </div>
 
@@ -111,9 +111,9 @@ const KeyFeaturesSection = () => {
               AI-Powered Design Excellence
             </p>
             <p className="text-lg text-text-primary mt-2">
-              Leverage our NICET IV-certified team and AI algorithms for
+              Leverage our NICET IV certified team and AI algorithms for
               precise, error-free designs that adapt to complex project
-              requirements in real-time.
+              requirements in real time.
             </p>
           </motion.div>
 
@@ -136,7 +136,7 @@ const KeyFeaturesSection = () => {
             </p>
             <p className="text-lg text-text-primary mt-2">
               We use your title blocks, details, and branding on all drawings.
-              Your projects stay yours—we never advertise clients or share
+              Your projects stay yours,we never advertise clients or share
               details.
             </p>
           </motion.div>
@@ -163,7 +163,7 @@ const KeyFeaturesSection = () => {
             </p>
             <p className="text-lg text-text-primary mt-2">
               We provide end-to-end services, from take-offs to final approvals,
-              at a fraction of the cost—handling the entire design process.
+              at a fraction of the cost, handling the entire design process.
             </p>
           </motion.div>
 
@@ -214,7 +214,7 @@ const KeyFeaturesSection = () => {
             Ditch email back-and-forths for our secure, AI-powered portal. Enjoy
             real-time chat with designers, instant design status updates,
             automated project initiation, and streamlined submittal
-            tracking—designed to save time and keep your team in sync.
+            tracking, designed to save time and keep your team in sync.
           </p>
         </motion.div>
       </motion.div>

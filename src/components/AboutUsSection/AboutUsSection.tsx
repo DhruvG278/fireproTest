@@ -78,17 +78,18 @@ const AboutSection = () => {
             <p className="text-lg leading-relaxed relative z-10">
               ProTech CDS evolved from a trusted leader in fire protection
               design to an Al powerhouse, committed to scaling businesses like
-              yours. With a large, dedicated team of NICET certified engineers,
-              PE's and Al specialists, we focus on large-scale projects that
-              demand precision and speed. Our journey began serving contractors
-              on massive builds-high-rises, casinos, campuses, semiconductor
-              facilities, big box retail, Amazon warehouses, military bases,
-              shopping malls, and data centers. Today, we empower contractors by
-              offering comprehensive services: take-offs, detailed engineering,
-              and submittals/permitting. Our client portal revolutionizes how we
-              work together, replacing outdated email workflows with real-time
-              collaboration, automated project tracking, billing and instant
-              access to critical updates.
+              yours. With a large, dedicated team of designers and engineers,
+              PE's and NICET certified specialists, we focus on large scale
+              projects that demand precision and speed. Our journey began
+              serving contractors on massive builds-high-rises, casinos,
+              campuses, semiconductor facilities, big box retail, Amazon
+              warehouses, military bases, office, shopping malls, and data
+              centers. Today, we empower contractors by offering comprehensive
+              services: take-offs, detailed engineering, and
+              submittals/permitting and more. Our client portal revolutionizes
+              how we work together, replacing outdated email workflows with real
+              time collaboration, automated project tracking, billing and
+              instant access to critical updates.
             </p>
           </motion.div>
 
@@ -140,11 +141,12 @@ const AboutSection = () => {
               Our Mission
             </h2>
             <p className="text-lg leading-relaxed relative z-10">
-              To make ProTech CDS the go-to partner for contractors worldwide,
-              delivering Al-enhanced solutions that save time, reduce costs, and
-              exceed compliance standards. We envision a future where every
-              major project relies on our expertise, making us your Complete
-              Design Service provider fostering long-term, proud partnerships.
+              To make ProTech CDS the go-to partner for contractors
+              worldwide, delivering Al enhanced solutions that save time, reduce
+              costs, and exceed compliance standards. We envision a future where
+              every major project relies on our expertise, making us your
+              Complete Design Service provider fostering long term, proud
+              partnerships.
             </p>
           </motion.div>
         </div>

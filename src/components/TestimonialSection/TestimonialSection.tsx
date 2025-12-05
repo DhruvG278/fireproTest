@@ -32,13 +32,6 @@ const testimonials = [
   },
   {
     quote:
-      "I just have started the business in the area. My main focus is going to be on small to medium size fire alarm installations, and upfit jobs like this panera Bread. I have been working on fire alarms for 13 years, and have Nicet level 2 FAS, and NC SPFA/LV license but all this time I have just been actually doing the installation, service, and repair myself. I haven’t been able to get very familiar with the submittal drawing, permit process as far as the beginning stage of getting a bid together, having all the estimates in place type of Stuff. I have been a big fan of your work, the company I work for got their drawings from you, and I would like to do the same. I look forward to working with you, and I am very thankful for any advice, and help that you have for me sir.",
-    author: "Architect",
-    company: "Leading Design Group",
-    image: images.PROFILE1,
-  },
-  {
-    quote:
       "I think I talked my counterpart area manager in firing their fire alarm designer and switching to you full time. They do way more alarm work than me even.",
     author: "Architect",
     company: "Leading Design Group",
